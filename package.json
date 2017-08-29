@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/devinroche/sparespace-services/issues"
   },
-  "homepage": "https://github.com/devinroche/sparespace-services#readme"
+  "homepage": "https://github.com/devinroche/sparespace-services#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "mongodb": "^2.2.31"
+  }
 }
