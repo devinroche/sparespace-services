@@ -11,6 +11,9 @@ MongoClient.connect(
     }
     db = database;
     console.log("Connected to database")
-    require("./routes.js")(app, db, app.listen(3000))
+    app.listen(3000, ()=>{
+        console.log('server 3000')
+    })
+    require("./routes.js")(app, db, app)
   }
 );
