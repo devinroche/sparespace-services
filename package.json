@@ -1,0 +1,19 @@
+{
+  "name": "sparespace-services",
+  "version": "1.0.0",
+  "description": "backend for sparespace project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devinroche/sparespace-services.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devinroche/sparespace-services/issues"
+  },
+  "homepage": "https://github.com/devinroche/sparespace-services#readme"
+}
