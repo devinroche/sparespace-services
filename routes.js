@@ -20,4 +20,25 @@ module.exports = function(server, db, helpers) {
             res.send(result)
         });
     })
+
+    server.post('/addUser', (req, res) => {
+        console.log(req, res)
+        var userObj = req
+        db.insertOne({
+            // username: userObj.username,
+            // fullname: userObj.fullname,
+            // email: userObj.email,
+            // address: userObj.address,
+            // isHost: false,
+            // currStoring: []
+            username: 'fart',
+            fullname: 'poop',
+            email: 'emailpoop',
+            address: 'poop address',
+            isHost: false,
+            currStoring: []
+        }, (err, result) => {
+            console.log(err, result)
+        })
+    })
 }
