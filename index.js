@@ -10,12 +10,11 @@ MongoClient.connect(
     if (err) 
       return err;
     
-    console.log("Connected to database")
     app.listen(3000, () => {
         console.log('localhost 3000')
     })
-    console.log(database)
-    require("./routes.js")(app, database, app)
+
+    require("./routes.js")(app, database, helpers)
   }
 );
 
