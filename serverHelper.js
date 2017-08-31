@@ -1,6 +1,5 @@
 module.exports = {
-    //this file will be used once we decide to refactor our code!
-    //this will be empty for the time being :) plz dont delete me
+
     checkNewUser(userObject, db, res) {
         console.log(userObject)
         var newUser = true
@@ -21,6 +20,7 @@ module.exports = {
             isStoring: false,
             currStoring: []
         })
+        return "user added"
     },
     checkUsers(userObj, db, res){
         db.findOne({ username: userObj.username }, function(err, user) {
@@ -28,7 +28,7 @@ module.exports = {
                 console.log("user already exists");
             } else {
                 console.log("user doesnt exist");
-                addUsertoDB(userObj, db);
+                return module.exports.addUsertoDB(userObj, db);
             }
         })
     }
