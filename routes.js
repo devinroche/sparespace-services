@@ -29,11 +29,14 @@ module.exports = function(server, db, helpers, bodyParser) {
 }
 
 /* DB model
-TEST 
+
 {
-    "username": "pooppooperson",
-    "fullname": "Poop Pooperson",
-    "email": "poopyemail@email.com"
+    username: "janedoe123",
+    fullname: "Jane Doe",
+    contact: {
+        email: "janedoe@email.com",
+        phone: "123-456-7890",
+    }
 }
 
 */
