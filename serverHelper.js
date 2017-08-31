@@ -26,7 +26,10 @@ userData = function(user){
         isHost: false,
         isStoring: false,
         landlords: [],
-        renters: []
+        renters: [],
+        space: {
+            size: user.space.size
+        }
     }
     console.log(userObj)
     return userObj
