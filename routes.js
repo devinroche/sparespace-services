@@ -24,18 +24,7 @@ module.exports = function(server, db, helpers, bodyParser) {
     server.post('/addUser', (req, res) => {
         var userObj = req.body
         helpers.checkUsers(userObj, db)
-        res.send(200)
-        // db.findOne({username: userObj.username},function(err, user){
-        //     if (user) {
-        //       console.log("user already exists");
-        //       res.send(user);
-        //     } else {
-        //       console.log("user doesnt exist");
-        //       helpers.addUsertoDB(userObj, db);
-        //       res.send(200);
-        //     }
-        // })
-
+        res.send()
     })
 }
 
