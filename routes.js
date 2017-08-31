@@ -36,35 +36,4 @@ TEST
     "email": "poopyemail@email.com"
 }
 
-{
-    username: string,
-    fullname: string,
-    email: string,
-    isHost: bool,
-    isStoring: bool,
-    hosting:[
-        {
-            fullname: string
-            username: string,
-            email: string,
-            paymentMethod: string,
-            dateStart: string/date,
-            dateEnd: string/date,
-            stuff: []
-        }
-    ]
-    storing: [
-        {
-            hostname: string,
-            hostusername: string,
-            address: string,
-            email: string,
-            paymentMethod: string,
-            dateStart: string/date,
-            dateEnd: string/date,
-            stuff: []
-        }
-    ]
-}
-
 */
