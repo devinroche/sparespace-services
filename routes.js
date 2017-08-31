@@ -22,34 +22,20 @@ module.exports = function(server, db, helpers, bodyParser) {
     })
 
     server.post('/addUser', (req, res) => {
-        console.log(req.body)
         var userObj = req.body
-        // db.findOne({username: userObj.username}).then(
-        //     (r) =>{
-        //     res.send(r)
-        //     }, 
-        //     (err) => {
-        //         res.send(err)
-        //     })
-        db.update({username: userObj.username},{
-            username: userObj.username,
-            fullname: userObj.fullname,
-            email: userObj.email,
-            address: userObj.address,
-            isHost: false,
-            isStoring: false,
-            currStoring: []
-        }, {
-             upsert: true
-           }, (err, result) => {
-            console.log(result)
-            if (err)
-                console.log(err)
-
-            else
-                res.sendStatus(200)
+        helpers.checkUsers(userObj, db)
+        res.send(200)
+        // db.findOne({username: userObj.username},function(err, user){
+        //     if (user) {
+        //       console.log("user already exists");
+        //       res.send(user);
+        //     } else {
+        //       console.log("user doesnt exist");
+        //       helpers.addUsertoDB(userObj, db);
+        //       res.send(200);
+        //     }
         // })
-        })
+
     })
 }
 
