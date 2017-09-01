@@ -51,12 +51,9 @@ const mongoose = require('mongoose')
     User = mongoose.model('Users')
     
 
-
 module.exports = {
-    allusers(req, res) {
-        console.log(req.body)
+    allUsers(req, res) {
         User.find({}, function (err, users) {
-            console.log(users)
             if (err)
                 res.send(err);
 
@@ -65,8 +62,9 @@ module.exports = {
     },
     createUser(req,res) {
         var newUser = new User(req.body)
-        console.log(req.body)
+        console.log(req)
         newUser.save(function (err, user) {
+            console.log(user)
             if(err)
                 res.send(err)
 

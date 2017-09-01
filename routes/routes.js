@@ -6,12 +6,11 @@ module.exports = function(app, db, bodyParser) {
     // db = db.collection('main')
 
     app.route('/allusers')
-        .get(helpers.allusers)
+        .get(helpers.allUsers)
         
     app.route('/user')
         // .get(helpers.getusers)
         .post(function(req, res){
-            console.log(req.body)
             helpers.createUser(req, res)
         })
 
