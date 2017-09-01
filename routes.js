@@ -17,7 +17,10 @@ module.exports = function(server, db, helpers, bodyParser) {
         }).toArray((error, result) => {
             if (error)
                 console.log(error)
-            res.send(result)
+
+            var foo = helpers.pruneHost(result)
+            console.log(foo)
+            res.send(foo)
         });
     })
 

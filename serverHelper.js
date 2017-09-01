@@ -12,6 +12,18 @@ var self = module.exports = {
                 self.addUsertoDB(objUser, db);
             }
         })
+    },
+    pruneHost(userObj){
+        hostObj = {
+            fullname: userObj.fullname,
+            username: userObj.username,
+            contact: {
+                email: userObj.contact.email,
+                phone: userObj.contact.phone
+            },
+            space: userObj.space
+        }
+        return hostObj
     }
 }
 
@@ -20,8 +32,8 @@ userData = function(user){
         username: user.username,
         fullname: user.fullname,
         contact: {
-            email: user.email,
-            phone: user.phone,
+            email: user.contact.email,
+            phone: user.contact.phone,
         },
         isHost: false,
         isStoring: false,
