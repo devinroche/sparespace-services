@@ -22,6 +22,7 @@
     "express": "^4.15.4",
     "mongodb": "^2.2.31",
     "mongoose": "^4.11.9",
+    "mongoose-unique-validator": "^1.0.5",
     "nodemon": "^1.11.0"
   }
 }

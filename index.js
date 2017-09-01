@@ -9,10 +9,10 @@ const express = require('express')
 var helpers = require("./controllers/serverHelper");
   routes = require('./routes/routes')
 
-routes(app)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+routes(app);
 app.listen(port)
 
 mongoose.Promise = global.Promise
