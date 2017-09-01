@@ -1,46 +1,14 @@
-const helpers = require('../controllers/serverHelper')
+const helpers = require("../controllers/serverHelper");
 
-module.exports = function(app, db, bodyParser) {
-    console.log('route.js')
-
-    // db = db.collection('main')
-
-    app.route('/allusers')
+module.exports = function(app) {
+    app.route('/users')
         .get(helpers.allUsers)
-        
-    app.route('/user')
-        // .get(helpers.getusers)
-        .post(function(req, res){
-            helpers.createUser(req, res)
-        })
+        .post(helpers.createUser)
 
-    // app.get('/', (req, res) =>{
-    //     db.find().toArray((error, result) => {
-    //         if(error)
-    //             console.log(error)
-    //         res.send(result)
-    //     });
-    // });
-
-    // app.get('/activePost', (req, res) => {
-    //     db.find({
-    //         isHost: true
-    //     }).toArray((error, result) => {
-    //         if (error)
-    //             console.log(error)
-
-    //         console.log(result)
-    //         var foo = helpers.pruneHost(result)
-    //         console.log(foo)
-    //         res.send(foo)
-    //     });
-    // })
-
-    // app.post('/addUser', (req, res) => {
-    //     var userObj = req.body
-    //     helpers.checkUsers(userObj, db)
-    //     res.send()
-    // })
+    app.route('/users/:id')
+        .get(helpers.getUser)
+        .put(helpers.updateUser)
+        .delete(helpers.deleteUser)
 }
 
 /* DB model

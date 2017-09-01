@@ -6,7 +6,7 @@ const express = require('express')
   port = process.env.PORT || 3001,
   app = express()
 
-var helpers = require("./controllers/serverHelper");
+var helpers = require("./controllers/serverHelper")
   routes = require('./routes/routes')
 
 app.use(bodyParser.json());
