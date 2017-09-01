@@ -54,6 +54,7 @@ const mongoose = require('mongoose')
 
 module.exports = {
     allusers(req, res) {
+        console.log(req.body)
         User.find({}, function (err, users) {
             console.log(users)
             if (err)

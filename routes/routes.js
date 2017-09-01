@@ -10,7 +10,10 @@ module.exports = function(app, db, bodyParser) {
         
     app.route('/user')
         // .get(helpers.getusers)
-        .post(helpers.createUser)
+        .post(function(req, res){
+            console.log(req.body)
+            helpers.createUser(req, res)
+        })
 
     // app.get('/', (req, res) =>{
     //     db.find().toArray((error, result) => {
