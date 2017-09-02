@@ -1,12 +1,12 @@
 const express = require('express')
-  bodyParser = require('body-parser')
-  mongoose = require('mongoose')
-  User = require("./models/userModel")
-  port = process.env.PORT || 3001,
-  app = express()
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const User = require("./models/userModel")
+const port = process.env.PORT || 3001
+const app = express()
 
 var helpers = require("./controllers/serverHelper")
-  routes = require('./routes/routes')
+const routes = require('./routes/routes')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

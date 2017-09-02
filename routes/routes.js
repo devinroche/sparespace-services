@@ -12,7 +12,6 @@ module.exports = function(app) {
 }
 
 /* post test dummy user
-
 {
     username: "janedoe123",
     fullname: "Jane Doe",
@@ -21,5 +20,4 @@ module.exports = function(app) {
         phone: "123-456-7890",
     }
 }
-
 */
