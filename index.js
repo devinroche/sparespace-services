@@ -1,20 +1,20 @@
 const express = require('express')
-const MongoClient = require('mongodb').MongoClient
-const app = express()
+  bodyParser = require('body-parser')
+  mongoose = require('mongoose')
+  User = require("./models/userModel")
+  port = process.env.PORT || 3001,
+  app = express()
 
-var helpers = require("./serverHelper");
-var database
-MongoClient.connect(
-  "***REMOVED***",
-  (err, database) => {
-    if (err) 
-      return err;
-    
-    app.listen(3000, () => {
-        console.log('localhost 3000')
-    })
+var helpers = require("./controllers/serverHelper")
+  routes = require('./routes/routes')
 
-    require("./routes.js")(app, database, helpers)
-  }
-);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+routes(app);
+app.listen(port)
+
+mongoose.Promise = global.Promise
+mongoose.connect("***REMOVED***")
+
+require("./routes/routes.js")(app, bodyParser)

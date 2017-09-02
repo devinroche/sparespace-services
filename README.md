@@ -1,14 +1,27 @@
-# sparespace-services
-backend for sparespace project
+# :house: sparespace services :house:
 
-this is the backend repo for the [sparespace project](https://github.com/devinroche/sparespace)
+This is the backend repository for [sparespace](https://github.com/devinroche/sparespace). sparespace is a senior project developed by a group of gonzaga students. We have attempted to follow REST api practices. 
 
-dont touch the apidocs branch!
+## Prerequisites
+Make sure you have the things installed below!
 
-to run server
+- [Node](https://nodejs.org/en/)
+- [MongoDB](https://www.mongodb.com/)
+
+Or use homebrew!
+```brew install node```
+and 
+```brew install mongodb```
+
+## Running the program
 
 ```
+npm install
 npm start
 ```
 
-[view api docs here!!](http://devinroche.me/projects/sparespaceapi/index.html)
+## Cool stuff that is used
+- [Mongoose](http://mongoosejs.com/)
+- [mlab](mlab.com)
+- [mongoose-unique-validator](https://www.npmjs.com/package/mongoose-unique-validator)
+- [express.js](https://expressjs.com/)
