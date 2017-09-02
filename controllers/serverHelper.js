@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-    User = mongoose.model('Users')
+const User = mongoose.model('Users')
 
 module.exports = {
     allUsers(req, res){

@@ -11,7 +11,7 @@ module.exports = function(app) {
         .delete(helpers.deleteUser)
 }
 
-/* DB model
+/* post test dummy user
 
 {
     username: "janedoe123",

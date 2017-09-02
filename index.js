@@ -1,5 +1,4 @@
 const express = require('express')
-  MongoClient = require('mongodb').MongoClient
   bodyParser = require('body-parser')
   mongoose = require('mongoose')
   User = require("./models/userModel")
@@ -19,18 +18,3 @@ mongoose.Promise = global.Promise
 mongoose.connect("***REMOVED***")
 
 require("./routes/routes.js")(app, bodyParser)
-
-// MongoClient.connect(
-//   "***REMOVED***",
-//   (err, database) => {
-//     if (err) 
-//       return err;
-    
-//     app.listen(3001, () => 
-//         console.log('localhost 3001')
-//     )
-
-//     require("./routes/routes.js")(app, database, bodyParser);
-//   }
-// );
-
