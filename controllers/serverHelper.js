@@ -51,10 +51,11 @@ module.exports = {
                 res.json(err);
             
             if(renter.length == 0){
-                return res.send(400)
+                res.send(400)
             }
-            
-            res.send(200)
+            else{
+                res.send(200)
+            }
         })
     }
 }
