@@ -1,46 +1,60 @@
 const mongoose = require('mongoose')
-const User = mongoose.model('Users')
+const Renter = mongoose.model('Renter')
 
 module.exports = {
     allUsers(req, res){
-        User.find({}, function (err, users) {
-            if (err)
-                res.json(err);
+        if(req.params.type == 'renter'){
+            Renter.find({}, function (err, renter) {
+                if (err)
+                    res.json(err);
 
-            res.send(users)
-        })
+                res.send(renter)
+            })
+        }
     },
     createUser(req, res) {
-        var newUser = new User(req.body)
-        newUser.save(function (err, user) {
+        var newRenter = new Renter(req.body)
+        newRenter.save(function (err, renter) {
             if(err)
                 res.json(err)
 
-            res.send(user)
+            res.send(renter)
         })
     },
     getUser(req, res){
-        User.findById(req.params.id, function(err, user){
+        Renter.findById(req.params.id, function(err, renter){
             if(err)
                 res.json(err)
 
-            res.send(user)
+            res.send(renter)
         })
     },
     updateUser(req, res){
-        User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, user){
+        Renter.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, renter){
             if (err) 
                 res.json(err)
 
-            res.send(user)
+            res.send(renter)
         })
     },
     deleteUser(req, res){
-        User.remove({_id: req.params.id}, function(err, user){
+        Renter.remove({_id: req.params.id}, function(err, renter){
             if(err)
                 res.json(err)
 
             res.json({message: "User deleted"});
+        })
+    },
+    loginUser(req, res){
+        Renter.find(req.body, function (err, renter) {
+            if (err)
+                res.json(err);
+            
+            if(renter.length == 0){
+                return res.send(400)
+            }
+            
+            res.send(200)
         })
     }
 }
