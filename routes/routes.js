@@ -1,7 +1,7 @@
 const helpers = require("../controllers/serverHelper");
 
 module.exports = function(app) {
-    app.route('/users')
+    app.route('/users/:type')
         .get(helpers.allUsers)
         .post(helpers.createUser)
 
@@ -9,15 +9,7 @@ module.exports = function(app) {
         .get(helpers.getUser)
         .put(helpers.updateUser)
         .delete(helpers.deleteUser)
-}
 
-/* post test dummy user
-{
-    username: "janedoe123",
-    fullname: "Jane Doe",
-    contact: {
-        email: "janedoe@email.com",
-        phone: "123-456-7890",
-    }
+    app.route('/login')
+        .get(helpers.loginUser)
 }
-*/
