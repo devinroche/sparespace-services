@@ -22,5 +22,5 @@ var renter = new Schema ({
     },
 })
 
-userSchema.plugin(uniqueValidator)
-module.exports = mongoose.model('Users', userSchema)
+renter.plugin(uniqueValidator)
+module.exports = mongoose.model('Users', renter)
