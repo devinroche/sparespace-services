@@ -22,6 +22,8 @@ var userSchema = new Schema ({
     }
 })
 
+renter.plugin(uniqueValidator)
+module.exports = mongoose.model('Users', renter)
 // var renterSchema = new Schema({
 //     username: {type: String, required: true, unique:true},
 //     fullname: { type: String, required: true }, 
@@ -63,6 +65,3 @@ var userSchema = new Schema ({
 //         endDate: {type: Date}
 //     }
 // })
-
-userSchema.plugin(uniqueValidator)
-module.exports = mongoose.model('Users', userSchema)
