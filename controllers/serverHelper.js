@@ -44,12 +44,13 @@ module.exports = {
         })
     },
     loginUser(req, res){
-        User.find(req.body, function (err, user) {
+        console.log(req.params)
+        User.find({'contact.email': req.params.email, password: req.params.password}, function (err, user) {
             if (err)
                 res.json(err);
             
             if(user.length == 0){
-                res.sendStatus(400)
+                res.sendStatus(404)
             }
             else{
                 res.sendStatus(200)
