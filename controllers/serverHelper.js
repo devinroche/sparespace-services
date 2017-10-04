@@ -53,7 +53,7 @@ module.exports = {
                 res.sendStatus(404)
             }
             else{
-                res.sendStatus(200)
+                res.send(user)
             }
         })
     }
