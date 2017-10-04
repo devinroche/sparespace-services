@@ -44,8 +44,8 @@ module.exports = {
         })
     },
     loginUser(req, res){
-        console.log(req.params)
-        User.find({'contact.email': req.params.email, password: req.params.password}, function (err, user) {
+        console.log(req.body)
+        User.find({'contact.email': req.body.email, password: req.body.password}, function (err, user) {
             if (err)
                 res.json(err);
             
