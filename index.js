@@ -18,5 +18,6 @@ app.listen(port)
 
 mongoose.Promise = global.Promise
 mongoose.connect("***REMOVED***")
+var db = mongoose.connection;
 
 require("./routes/routes.js")(app, bodyParser)
