@@ -10,6 +10,6 @@ module.exports = function(app) {
         .put(helpers.updateUser)
         .delete(helpers.deleteUser)
 
-    app.route('/login/')
+    app.route('/login')
         .post(helpers.loginUser)
 }
