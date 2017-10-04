@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
-const User = mongoose.model('Users')
+const User = mongoose.model('User')
 
 module.exports = {
     allUsers(req, res){
-        User.find({}, function (err, users) {
+        User.find({}, function (err, user) {
             if (err)
                 res.json(err);
 
-            res.send(users)
+            res.send(user)
         })
     },
     createUser(req, res) {
@@ -41,6 +41,19 @@ module.exports = {
                 res.json(err)
 
             res.json({message: "User deleted"});
+        })
+    },
+    loginUser(req, res){
+        User.find(req.body, function (err, user) {
+            if (err)
+                res.json(err);
+            
+            if(user.length == 0){
+                res.sendStatus(400)
+            }
+            else{
+                res.sendStatus(200)
+            }
         })
     }
 }
