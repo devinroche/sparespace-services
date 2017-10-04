@@ -8,32 +8,22 @@ var user = new Schema ({
     password: { type: String, required: true }, 
     contact: {
         email: { type: String, required: true },
-        phone: { type: String, required: true }, 
+        phone: {type:String, required: true }, 
+        address: String
     },
-    isStoring: { type: Boolean, default: false },
-    landlord: {
-        fullname: {type: String},
-        contact: {
-            email: { type: String},
-            phone: { type: String}, 
-        },
-        location: {type: String},
-        price: {type: String},
-        duration: {type: String}
-    }
+    userType: {type: String, required:true, default: "renter" },
+    isRenting: { type: Boolean, default: false },
+    isHosting: { type: Boolean, default: false },
+    hosting: [
+        {name: String, contact: {email: String, phone: String}, price: String, duration: String, startDate: Date}
+    ],
+    renting: [
+        {name: String, contact: {email: String, phone: String}, price: String, address: String, duration: String, startDate: Date}
+    ],
+    post: [
+        {title: String, duration: String, startDate: Date, description: String, price: String}
+    ]
 }, { collection: 'sparespaceusers' })
 
 user.plugin(uniqueValidator)
 module.exports = mongoose.model('User', user)
-
-
-/* post test dummy user
-{
-    username: "janedoe123",
-    fullname: "Jane Doe",
-    contact: {
-        email: "janedoe@email.com",
-        phone: "123-456-7890",
-    }
-}
-*/
