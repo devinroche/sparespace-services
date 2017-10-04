@@ -1,7 +1,7 @@
 const helpers = require("../controllers/serverHelper");
 
 module.exports = function(app) {
-    app.route('/users/:type')
+    app.route('/users')
         .get(helpers.allUsers)
         .post(helpers.createUser)
 
