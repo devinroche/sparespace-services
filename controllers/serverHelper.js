@@ -1,44 +1,42 @@
 const mongoose = require('mongoose')
-const Renter = mongoose.model('Renter')
+const User = mongoose.model('User')
 
 module.exports = {
     allUsers(req, res){
-        if(req.params.type == 'renter'){
-            Renter.find({}, function (err, renter) {
-                if (err)
-                    res.json(err);
+        User.find({}, function (err, user) {
+            if (err)
+                res.json(err);
 
-                res.send(renter)
-            })
-        }
+            res.send(user)
+        })
     },
     createUser(req, res) {
-        var newRenter = new Renter(req.body)
-        newRenter.save(function (err, renter) {
+        var newUser = new User(req.body)
+        newUser.save(function (err, user) {
             if(err)
                 res.json(err)
 
-            res.send(renter)
+            res.send(user)
         })
     },
     getUser(req, res){
-        Renter.findById(req.params.id, function(err, renter){
+        User.findById(req.params.id, function(err, user){
             if(err)
                 res.json(err)
 
-            res.send(renter)
+            res.send(user)
         })
     },
     updateUser(req, res){
-        Renter.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, renter){
+        User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, user){
             if (err) 
                 res.json(err)
 
-            res.send(renter)
+            res.send(user)
         })
     },
     deleteUser(req, res){
-        Renter.remove({_id: req.params.id}, function(err, renter){
+        User.remove({_id: req.params.id}, function(err, user){
             if(err)
                 res.json(err)
 
@@ -46,15 +44,15 @@ module.exports = {
         })
     },
     loginUser(req, res){
-        Renter.find(req.body, function (err, renter) {
+        User.find(req.body, function (err, user) {
             if (err)
                 res.json(err);
             
-            if(renter.length == 0){
-                res.send(400)
+            if(user.length == 0){
+                res.sendStatus(400)
             }
             else{
-                res.send(200)
+                res.sendStatus(200)
             }
         })
     }

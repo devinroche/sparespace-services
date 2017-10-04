@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema 
 
-var renter = new Schema ({
+var user = new Schema ({
     username: {type:String, required: true, unique: true}, 
     fullname: { type: String, required: true }, 
     password: { type: String, required: true }, 
@@ -21,10 +21,10 @@ var renter = new Schema ({
         price: {type: String},
         duration: {type: String}
     }
-}, { collection: 'renterinfo' })
+}, { collection: 'sparespaceusers' })
 
-renter.plugin(uniqueValidator)
-module.exports = mongoose.model('Renter', renter)
+user.plugin(uniqueValidator)
+module.exports = mongoose.model('User', user)
 
 
 /* post test dummy user
