@@ -11,13 +11,30 @@ module.exports = {
         })
     },
     createUser(req, res) {
-        var newUser = new User(req.body)
-        newUser.save(function (err, user) {
-            if(err)
-                res.json(err)
+        var ending = /zagmail.gonzaga.edu/.test(req.body.contact.email);
+        
+        //Check that the name field is not empty
+        //req.checkBody('fullname', 'full name required').notEmpty();
 
-            res.send(user)
-        })
+        //Trim and escape the name field. 
+        //req.sanitize('fullname').escape();
+        //req.sanitize('fullname').trim();
+
+        //Run the validators
+        //var errors = req.validationErrors();
+
+        if (!ending) {
+            // ask to rerender with apropriate erros sent
+        } else {
+                //data is all good
+                var newUser = new User(req.body)
+                newUser.save(function (err, user) {
+                if(err)
+                    res.json(err)
+
+                res.send(user)
+            })
+        }
     },
     getUser(req, res){
         User.findById(req.params.id, function(err, user){
