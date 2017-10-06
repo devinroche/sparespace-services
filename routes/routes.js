@@ -12,4 +12,7 @@ module.exports = function(app) {
 
     app.route('/login')
         .get(helpers.loginUser)
+
+    app.route('/verify/:id')
+    	.get(helpers.verify_user)
 }
