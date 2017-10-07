@@ -13,6 +13,7 @@ var user = new Schema ({
     userType: {type: String, required:true, default: "renter" },
     isRenting: { type: Boolean, default: false },
     isHosting: { type: Boolean, default: false },
+    isVerified: {type: Boolean,default: false},
     hosting: [
         {name: String, contact: {email: String, phone: String}, price: String, duration: String, startDate: Date}
     ],
