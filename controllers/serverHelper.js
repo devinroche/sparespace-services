@@ -54,34 +54,17 @@ module.exports = {
         })
     },
     createUser(req, res) {
-        //check that email has .edu ending 
-        
         var ending = /zagmail.gonzaga.edu/.test(req.body.contact.email);
-        
-        
 
         if (!ending) {
-            
             console.log(ending);
-            // ask to rerender with apropriate erros sent
         } else {
-            
-            var newUser = new User(req.body)
-            newUser.save(function (err, user) {
+                var newUser = new User(req.body)
+                newUser.save(function (err, user) {
                 if(err)
                     res.json(err)
                 sendMail(user._id,req.body.contact.email);
                 res.send(user);
-                
-                
-
-                
-
-
-            })
-
-        }
-        
     },
     getUser(req, res){
         User.findById(req.params.id, function(err, user){
@@ -108,15 +91,16 @@ module.exports = {
         })
     },
     loginUser(req, res){
-        User.find(req.body, function (err, user) {
+        console.log(req.body)
+        User.find({'contact.email': req.body.email, password: req.body.password}, function (err, user) {
             if (err)
                 res.json(err);
             
             if(user.length == 0){
-                res.sendStatus(400)
+                res.sendStatus(404)
             }
             else{
-                res.sendStatus(200)
+                res.send(user)
             }
         })
     },

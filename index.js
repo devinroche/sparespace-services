@@ -24,5 +24,6 @@ app.listen(port)
 
 mongoose.Promise = global.Promise
 mongoose.connect("mongodb://admin:password@ds044689.mlab.com:44689/sparespacedb")
+var db = mongoose.connection;
 
 require("./routes/routes.js")(app, bodyParser)
