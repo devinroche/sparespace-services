@@ -13,16 +13,15 @@ function sendMail(userid,email) {
     
     // email you use must not need o2 authorization 
     //email needs to be configured with 'less secure apps'
-    var transporter = nodemailer.createTransport({
-      service: 'yahoo',
-      auth: {
-        user: 'evanarends@yahoo.com',
-        pass: 'Seahawks21'
-      }
-    });
-
+    // var transporter = nodemailer.createTransport({
+    //     service: 'yahoo',
+    //     auth: {
+    //       user: 'email@yahoo.com',
+    //       pass: 'password123'
+    //     }
+    //   });
     var mailOptions = {
-        from: 'evanarends@yahoo.com',
+        from: 'email@yahoo.com',
         to: email,
         subject: 'SpareSpace Account Verification',
         text: "Please go to link to verify your email: " + "http://localhost:3001/verify/" + userid
