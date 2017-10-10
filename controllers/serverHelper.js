@@ -3,44 +3,17 @@ const User = mongoose.model('User')
 var nodemailer = require('nodemailer');
 
 
-/*
-Description: function that sends out email to user
-inputs: - userid - id to user schema
-        - email - email address of account verification
-Note: very picky, you may need to delete and recopy code because of error 553 account verification bullshit..
-*/ 
-function sendMail(userid,email) {
-    
-    // email you use must not need o2 authorization 
-    //email needs to be configured with 'less secure apps'
-    // var transporter = nodemailer.createTransport({
-    //     service: 'yahoo',
-    //     auth: {
-    //       user: 'email@yahoo.com',
-    //       pass: 'password123'
-    //     }
-    //   });
-    var mailOptions = {
-        from: 'email@yahoo.com',
-        to: email,
-        subject: 'SpareSpace Account Verification',
-        text: "Please go to link to verify your email: " + "http://localhost:3001/verify/" + userid
-    };
 
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('works');
-        }
-    });
-
-
-
-    
-}
-
-
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+        type: 'OAuth2',
+        user: 'evanarendss.com',
+        pass: 'dsfds'
+    }
+});
 
 
 module.exports = {
@@ -62,9 +35,12 @@ module.exports = {
                 newUser.save(function (err, user) {
                 if(err)
                     res.json(err)
-                sendMail(user._id,req.body.contact.email);
+                
                 res.send(user);
+                });
+        }
     },
+
     getUser(req, res){
         User.findById(req.params.id, function(err, user){
             if(err)
@@ -73,6 +49,7 @@ module.exports = {
             res.send(user)
         })
     },
+
     updateUser(req, res){
         User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, user){
             if (err) 
@@ -111,5 +88,23 @@ module.exports = {
                 res.json(err)
             res.send("account verified");
         })
+    },
+
+    sendEmailVerify(req,res) {
+        var mailOptions = {
+            from: '"Fred Foo ?" evanarendss@gmail.com', // sender address
+            to: 'evanarendss@gmail.com', // list of receivers
+            subject: 'Hello ✔', // Subject line
+            text: 'Hello world ?', // plaintext body
+            
+        }; 
+
+        transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+        });   
+
     }
 }
