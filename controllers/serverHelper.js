@@ -3,19 +3,6 @@ const User = mongoose.model('User')
 var nodemailer = require('nodemailer');
 
 
-
-let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        type: 'OAuth2',
-        user: 'evanarendss.com',
-        pass: 'dsfds'
-    }
-});
-
-
 module.exports = {
     allUsers(req, res){
         User.find({}, function (err, user) {
@@ -91,20 +78,46 @@ module.exports = {
     },
 
     sendEmailVerify(req,res) {
-        var mailOptions = {
-            from: '"Fred Foo ?" evanarendss@gmail.com', // sender address
-            to: 'evanarendss@gmail.com', // list of receivers
-            subject: 'Hello ✔', // Subject line
-            text: 'Hello world ?', // plaintext body
+        // var mailOptions = {
+        //     from: '"Fred Foo ?" evanarendss@gmail.com', // sender address
+        //     to: 'devinroche503@gmail.com', // list of receivers
+        //     subject: 'Hello ✔', // Subject line
+        //     text: 'Hello world ?', // plaintext body
             
-        }; 
+        // }; 
 
-        transporter.sendMail(mailOptions, function(error, info){
-        if(error){
-            return console.log(error);
+        // transporter.sendMail(mailOptions, function(error, info){
+        // if(error){
+        //     return console.log(error);
+        // }
+        // console.log('Message sent: ' + info.response);
+        // });   
+
+        var smtpTransport = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            auth: {
+                user: "sparespace420",
+                pass: "sparespace1"
+            }
+        });
+
+        var mailOptions={
+            to : 'roche.devin@ymail.com',
+            subject : 'fart',
+            text : 'fart'
         }
-        console.log('Message sent: ' + info.response);
-        });   
-
+        console.log(mailOptions);
+        smtpTransport.sendMail(mailOptions, function(error, response){
+            
+         if(error){
+            console.log(error);
+            res.end("error");
+            smtpTransport.close()
+         }else{
+            res.end("sent");
+            smtpTransport.close()
+            }
+        });
     }
 }
