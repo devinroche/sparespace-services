@@ -11,7 +11,11 @@ module.exports = function(app) {
         .delete(helpers.deleteUser)
 
     app.route('/login')
+
     app.route('/verify/:id')
     	.get(helpers.verify_user)
         .post(helpers.loginUser)
+
+    app.route('/send')
+        .get(helpers.sendEmailVerify)
 }
