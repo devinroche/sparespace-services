@@ -11,6 +11,8 @@ module.exports = function(app) {
         .delete(helpers.deleteUser)
 
     app.route('/login')
+        .post(helpers.loginUser)
+
     app.route('/verify/:id')
     	.get(helpers.verify_user)
         .post(helpers.loginUser)
