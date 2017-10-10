@@ -2,24 +2,17 @@ const mongoose = require('mongoose')
 const User = mongoose.model('User')
 var nodemailer = require('nodemailer');
 
-
-/*
-Description: function that sends out email to user
-inputs: - userid - id to user schema
-        - email - email address of account verification
-Note: very picky, you may need to delete and recopy code because of error 553 account verification bullshit..
-*/ 
 function sendMail(userid,email) {
     
     // email you use must not need o2 authorization 
     //email needs to be configured with 'less secure apps'
-    // var transporter = nodemailer.createTransport({
-    //     service: 'yahoo',
-    //     auth: {
-    //       user: 'email@yahoo.com',
-    //       pass: 'password123'
-    //     }
-    //   });
+    var transporter = nodemailer.createTransport({
+        service: 'yahoo',
+        auth: {
+          user: 'email@yahoo.com',
+          pass: 'password123'
+        }
+      });
     var mailOptions = {
         from: 'email@yahoo.com',
         to: email,
@@ -34,11 +27,8 @@ function sendMail(userid,email) {
             console.log('works');
         }
     });
-
-
-
-    
 }
+
 
 
 
@@ -55,15 +45,18 @@ module.exports = {
     createUser(req, res) {
         var ending = /zagmail.gonzaga.edu/.test(req.body.contact.email);
 
-        if (!ending) {
-            console.log(ending);
-        } else {
+        // if (!ending) {
+        //     console.log(ending);
+        // } else {
                 var newUser = new User(req.body)
                 newUser.save(function (err, user) {
                 if(err)
                     res.json(err)
+
                 sendMail(user._id,req.body.contact.email);
                 res.send(user);
+            })
+        // }
     },
     getUser(req, res){
         User.findById(req.params.id, function(err, user){
