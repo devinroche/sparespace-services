@@ -13,19 +13,13 @@ module.exports = {
         })
     },
     createUser(req, res) {
-        var ending = /zagmail.gonzaga.edu/.test(req.body.contact.email);
+        var newUser = new User(req.body)
+        newUser.save(function (err, user) {
+            if(err)
+                res.json(err)
 
-        // if (!ending) {
-        //     console.log(ending);
-        // } else {
-                var newUser = new User(req.body)
-                newUser.save(function (err, user) {
-                if(err)
-                    res.json(err)
-
-                res.send(user);
-                });
-        }
+            res.send(user);
+        });
     },
 
     getUser(req, res){
@@ -80,8 +74,8 @@ module.exports = {
             service: "gmail",
             host: "smtp.gmail.com",
             auth: {
-                user: "sparespace420",
-                pass: "sparespace1"
+                user: process.env.EMAIL,
+                pass: process.env.PASS
             }
         });
 
