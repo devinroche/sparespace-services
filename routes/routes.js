@@ -21,4 +21,6 @@ module.exports = function(app) {
 
     app.route('/marker')
         .post(helpers.getCords)
+
+    app.route('/map')
 }
