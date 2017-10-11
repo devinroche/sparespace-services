@@ -2,34 +2,6 @@ const mongoose = require('mongoose')
 const User = mongoose.model('User')
 var nodemailer = require('nodemailer');
 
-function sendMail(userid,email) {
-    
-    // email you use must not need o2 authorization 
-    //email needs to be configured with 'less secure apps'
-    var transporter = nodemailer.createTransport({
-        service: 'yahoo',
-        auth: {
-          user: 'email@yahoo.com',
-          pass: 'password123'
-        }
-      });
-    var mailOptions = {
-        from: 'email@yahoo.com',
-        to: email,
-        subject: 'SpareSpace Account Verification',
-        text: "Please go to link to verify your email: " + "http://localhost:3001/verify/" + userid
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('works');
-        }
-    });
-}
-
-
 
 module.exports = {
     allUsers(req, res){
@@ -51,11 +23,11 @@ module.exports = {
                 if(err)
                     res.json(err)
 
-                sendMail(user._id,req.body.contact.email);
                 res.send(user);
-            })
-        // }
+                });
+        }
     },
+
     getUser(req, res){
         User.findById(req.params.id, function(err, user){
             if(err)
@@ -64,9 +36,10 @@ module.exports = {
             res.send(user)
         })
     },
+
     updateUser(req, res){
         User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, user){
-            if (err) 
+            if (err)
                 res.json(err)
 
             res.send(user)
@@ -81,11 +54,10 @@ module.exports = {
         })
     },
     loginUser(req, res){
-        console.log(req.body)
         User.find({'contact.email': req.body.email, password: req.body.password}, function (err, user) {
             if (err)
                 res.json(err);
-            
+
             if(user.length == 0){
                 res.sendStatus(404)
             }
@@ -94,12 +66,39 @@ module.exports = {
             }
         })
     },
-    
+
     verify_user(req,res) {
         User.findOneAndUpdate({_id: req.params.id}, {isVerified: true}, function(err, user){
-            if (err) 
+            if (err)
                 res.json(err)
             res.send("account verified");
         })
+    },
+
+    sendEmailVerify(req,res) {
+        var smtpTransport = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            auth: {
+                user: "sparespace420",
+                pass: "sparespace1"
+            }
+        });
+
+        var mailOptions={
+            to : req.body.to,
+            subject : 'Sparespace Verification',
+            text: 'fart',
+            html : '<p>Click <a href="http://localhost:3001/verify/' + req.body.id + '">Here</a> to verify your account</p>'
+        }
+        
+        smtpTransport.sendMail(mailOptions, function(error, response){
+            if(error){
+                res.end("error");
+            }else{
+                res.end("sent");
+            }
+            smtpTransport.close()
+        });
     }
 }
