@@ -17,5 +17,8 @@ module.exports = function(app) {
         .post(helpers.loginUser)
 
     app.route('/send')
-        .get(helpers.sendEmailVerify)
+        .post(helpers.sendEmailVerify)
+
+    app.route('/marker')
+        .post(helpers.getCords)
 }
