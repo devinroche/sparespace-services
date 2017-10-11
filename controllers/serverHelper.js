@@ -31,8 +31,6 @@ function sendMail(userid,email) {
 
 
 
-
-
 module.exports = {
     allUsers(req, res){
         User.find({}, function (err, user) {
@@ -96,8 +94,7 @@ module.exports = {
             }
         })
     },
-    //finds user that clicked email veriifcation link
-    //updates their account to be verified
+    
     verify_user(req,res) {
         User.findOneAndUpdate({_id: req.params.id}, {isVerified: true}, function(err, user){
             if (err) 
