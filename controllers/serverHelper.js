@@ -101,7 +101,7 @@ module.exports = {
         var mailOptions={
             to : req.body.email,
             subject : 'no-reply',
-            text : 'Please go to this link to verify your sparespace account: http://localhost:3001/verify/'+req.params.id
+            text : 'Please go to this link to verify your sparespace account: http://localhost:3001/verify/'+req.body.id
         }
         console.log(mailOptions);
         smtpTransport.sendMail(mailOptions, function(error, response){
