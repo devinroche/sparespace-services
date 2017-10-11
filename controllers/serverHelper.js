@@ -3,6 +3,9 @@ const User = mongoose.model('User')
 var nodemailer = require('nodemailer');
 
 
+
+
+
 module.exports = {
     allUsers(req, res){
         User.find({}, function (err, user) {
@@ -77,21 +80,14 @@ module.exports = {
         })
     },
 
-    sendEmailVerify(req,res) {
-        // var mailOptions = {
-        //     from: '"Fred Foo ?" evanarendss@gmail.com', // sender address
-        //     to: 'devinroche503@gmail.com', // list of receivers
-        //     subject: 'Hello ✔', // Subject line
-        //     text: 'Hello world ?', // plaintext body
-            
-        // }; 
-
-        // transporter.sendMail(mailOptions, function(error, info){
-        // if(error){
-        //     return console.log(error);
-        // }
-        // console.log('Message sent: ' + info.response);
-        // });   
+    /*
+    to test get request
+    http://localhost:3000/verify/<user schema id>
+    {
+        "email": "john@gmail.com"
+    }
+    */
+    sendEmailVerify(req,res) {  
 
         var smtpTransport = nodemailer.createTransport({
             service: "gmail",
@@ -103,9 +99,9 @@ module.exports = {
         });
 
         var mailOptions={
-            to : 'roche.devin@ymail.com',
-            subject : 'fart',
-            text : 'fart'
+            to : req.body.email,
+            subject : 'no-reply',
+            text : 'Please go to this link to verify your sparespace account: http://localhost:3001/verify/'+req.params.id
         }
         console.log(mailOptions);
         smtpTransport.sendMail(mailOptions, function(error, response){
@@ -119,5 +115,25 @@ module.exports = {
             smtpTransport.close()
             }
         });
-    }
+    },
+
+    //returns cordinates after address/zipcode/.. is posted
+    getCords(req,res) { // begin
+        var googleMapsClient = require('@google/maps').createClient({
+            key: 'AIzaSyDsbtgLSTu3oT1esJkWRbAxmqGOBGsZEsE'
+        });
+
+        // Geocode an address.
+        googleMapsClient.geocode({
+            address: req.body.address
+        }, function(err, response) {
+            if (!err) {
+                res.send(response.json.results);
+            } else {
+                res.send('nada');
+            }
+        });
+
+    } //end
+
 }
