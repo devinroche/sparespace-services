@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const User = require("./models/userModel")
-
+require('dotenv').load();
 var cookieParser = require('cookie-parser');
 
 var expressValidator = require('express-validator');
