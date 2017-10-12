@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const User = mongoose.model('User')
 var nodemailer = require('nodemailer');
 
-
 module.exports = {
     allUsers(req, res){
         User.find({}, function (err, user) {
@@ -69,7 +68,8 @@ module.exports = {
         })
     },
 
-    sendEmailVerify(req,res) {
+    sendEmailVerify(req,res) {  
+
         var smtpTransport = nodemailer.createTransport({
             service: "gmail",
             host: "smtp.gmail.com",
@@ -94,5 +94,23 @@ module.exports = {
             }
             smtpTransport.close()
         });
-    }
+    },
+
+    getCords(req,res) { 
+        var googleMapsClient = require('@google/maps').createClient({
+            key: process.env.GMAPS
+        });
+
+        googleMapsClient.geocode({
+            address: req.body.address
+        }, function(err, response) {
+            if (!err) {
+                res.send(response.json.results);
+            } else {
+                res.send('nada');
+            }
+        });
+
+    } 
+
 }
