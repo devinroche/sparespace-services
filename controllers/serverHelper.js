@@ -2,10 +2,6 @@ const mongoose = require('mongoose')
 const User = mongoose.model('User')
 var nodemailer = require('nodemailer');
 
-
-
-
-
 module.exports = {
     allUsers(req, res){
         User.find({}, function (err, user) {
@@ -16,19 +12,13 @@ module.exports = {
         })
     },
     createUser(req, res) {
-        var ending = /zagmail.gonzaga.edu/.test(req.body.contact.email);
+        var newUser = new User(req.body)
+        newUser.save(function (err, user) {
+            if(err)
+                res.json(err)
 
-        if (!ending) {
-            console.log(ending);
-        } else {
-                var newUser = new User(req.body)
-                newUser.save(function (err, user) {
-                if(err)
-                    res.json(err)
-                
-                res.send(user);
-                });
-        }
+            res.send(user);
+        });
     },
 
     getUser(req, res){
@@ -42,7 +32,7 @@ module.exports = {
 
     updateUser(req, res){
         User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, user){
-            if (err) 
+            if (err)
                 res.json(err)
 
             res.send(user)
@@ -57,11 +47,10 @@ module.exports = {
         })
     },
     loginUser(req, res){
-        console.log(req.body)
         User.find({'contact.email': req.body.email, password: req.body.password}, function (err, user) {
             if (err)
                 res.json(err);
-            
+
             if(user.length == 0){
                 res.sendStatus(404)
             }
@@ -73,7 +62,7 @@ module.exports = {
 
     verify_user(req,res) {
         User.findOneAndUpdate({_id: req.params.id}, {isVerified: true}, function(err, user){
-            if (err) 
+            if (err)
                 res.json(err)
             res.send("account verified");
         })
@@ -85,33 +74,31 @@ module.exports = {
             service: "gmail",
             host: "smtp.gmail.com",
             auth: {
-                user: "sparespace420",
-                pass: "sparespace1"
+                user: process.env.EMAIL,
+                pass: process.env.PASS
             }
         });
 
         var mailOptions={
-            to : req.body.email,
-            subject : 'no-reply',
-            text : 'Please go to this link to verify your sparespace account: http://localhost:3001/verify/'+req.body.id
+            to : req.body.to,
+            subject : 'Sparespace Verification',
+            text: 'fart',
+            html : '<p>Click <a href="http://localhost:3001/verify/' + req.body.id + '">Here</a> to verify your account</p>'
         }
-        console.log(mailOptions);
+        
         smtpTransport.sendMail(mailOptions, function(error, response){
-            
-         if(error){
-            console.log(error);
-            res.end("error");
-            smtpTransport.close()
-         }else{
-            res.end("sent");
-            smtpTransport.close()
+            if(error){
+                res.end("error");
+            }else{
+                res.end("sent");
             }
+            smtpTransport.close()
         });
     },
 
     getCords(req,res) { 
         var googleMapsClient = require('@google/maps').createClient({
-            key: 'AIzaSyDsbtgLSTu3oT1esJkWRbAxmqGOBGsZEsE'
+            key: process.env.GMAPS
         });
 
         googleMapsClient.geocode({
