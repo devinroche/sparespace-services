@@ -69,7 +69,6 @@ module.exports = {
     },
 
     sendEmailVerify(req,res) {  
-
         var smtpTransport = nodemailer.createTransport({
             service: "gmail",
             host: "smtp.gmail.com",

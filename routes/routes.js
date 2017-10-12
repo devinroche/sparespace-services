@@ -15,7 +15,6 @@ module.exports = function(app) {
 
     app.route('/verify/:id')
     	.get(helpers.verify_user)
-        .post(helpers.loginUser)
 
     app.route('/send')
         .post(helpers.sendEmailVerify)
