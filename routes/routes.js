@@ -13,11 +13,11 @@ module.exports = function(app) {
     app.route('/login')
         .post(helpers.loginUser)
 
-    app.route('/verify/:id')
+    app.route('/verify/:email')
     	.get(helpers.verify_user)
 
     app.route('/send')
-        .post(helpers.sendEmailVerify)
+
 
     app.route('/marker')
         .post(helpers.getCords)
