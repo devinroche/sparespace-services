@@ -70,8 +70,7 @@ module.exports = {
             }
         })
     },
-    //finds user that clicked email veriifcation link
-    //updates their account to be verified
+
     verify_user(req,res) {
         User.findOneAndUpdate({_id: req.params.id}, {isVerified: true}, function(err, user){
             if (err) 
@@ -80,13 +79,6 @@ module.exports = {
         })
     },
 
-    /*
-    to test get request
-    http://localhost:3000/verify/<user schema id>
-    {
-        "email": "john@gmail.com"
-    }
-    */
     sendEmailVerify(req,res) {  
 
         var smtpTransport = nodemailer.createTransport({
@@ -117,13 +109,11 @@ module.exports = {
         });
     },
 
-    //returns cordinates after address/zipcode/.. is posted
-    getCords(req,res) { // begin
+    getCords(req,res) { 
         var googleMapsClient = require('@google/maps').createClient({
             key: 'AIzaSyDsbtgLSTu3oT1esJkWRbAxmqGOBGsZEsE'
         });
 
-        // Geocode an address.
         googleMapsClient.geocode({
             address: req.body.address
         }, function(err, response) {
@@ -134,6 +124,6 @@ module.exports = {
             }
         });
 
-    } //end
+    } 
 
 }
