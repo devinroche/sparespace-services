@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+const mailHelper = require('./mailHelper')
 const User = mongoose.model('User')
-var nodemailer = require('nodemailer');
+
 
 module.exports = {
     allUsers(req, res){
@@ -12,11 +13,13 @@ module.exports = {
         })
     },
     createUser(req, res) {
+        console.log(req.body)
         var newUser = new User(req.body)
         newUser.save(function (err, user) {
             if(err)
                 res.json(err)
 
+            mailHelper.sendEmailVerify(req.body.contact.email)
             res.send(user);
         });
     },
@@ -35,7 +38,7 @@ module.exports = {
             if (err)
                 res.json(err)
 
-            res.send(user)
+            res.send(200)
         })
     },
     deleteUser(req, res){
@@ -43,7 +46,7 @@ module.exports = {
             if(err)
                 res.json(err)
 
-            res.json({message: "User deleted"});
+            res.sendStatus(200);
         })
     },
     loginUser(req, res){
@@ -61,38 +64,11 @@ module.exports = {
     },
 
     verify_user(req,res) {
-        User.findOneAndUpdate({_id: req.params.id}, {isVerified: true}, function(err, user){
+        User.findOneAndUpdate({'contact.email': req.params.email}, {isVerified: true}, function(err, user){
             if (err)
                 res.json(err)
             res.send("account verified");
         })
-    },
-
-    sendEmailVerify(req,res) {  
-        var smtpTransport = nodemailer.createTransport({
-            service: "gmail",
-            host: "smtp.gmail.com",
-            auth: {
-                user: process.env.EMAIL,
-                pass: process.env.PASS
-            }
-        });
-
-        var mailOptions={
-            to : req.body.to,
-            subject : 'Sparespace Verification',
-            text: 'fart',
-            html : '<p>Click <a href="http://localhost:3001/verify/' + req.body.id + '">Here</a> to verify your account</p>'
-        }
-        
-        smtpTransport.sendMail(mailOptions, function(error, response){
-            if(error){
-                res.end("error");
-            }else{
-                res.end("sent");
-            }
-            smtpTransport.close()
-        });
     },
 
     getCords(req,res) { 
