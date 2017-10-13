@@ -19,9 +19,9 @@ module.exports = {
             if(err)
                 res.json(err)
 
+            mailHelper.sendEmailVerify(req.body.contact.email)
             res.send(user);
         });
-        mailHelper.sendEmailVerify(req.body.contact.email)
     },
 
     getUser(req, res){
@@ -38,7 +38,7 @@ module.exports = {
             if (err)
                 res.json(err)
 
-            res.send(user)
+            res.send(200)
         })
     },
     deleteUser(req, res){
@@ -46,7 +46,7 @@ module.exports = {
             if(err)
                 res.json(err)
 
-            res.json({message: "User deleted"});
+            res.sendStatus(200);
         })
     },
     loginUser(req, res){
