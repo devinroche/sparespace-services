@@ -16,11 +16,7 @@ module.exports = function(app) {
     app.route('/verify/:email')
     	.get(helpers.verify_user)
 
-    app.route('/send')
-
-
     app.route('/marker')
         .post(helpers.getCords)
 
-    app.route('/map')
 }
