@@ -13,7 +13,6 @@ module.exports = {
         })
     },
     createUser(req, res) {
-        console.log(req.body)
         var newUser = new User(req.body)
         newUser.save(function (err, user) {
             if(err)
