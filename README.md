@@ -21,11 +21,12 @@ npm start
 ```
 
 ## API
-Get all users: 
+**Get all users**: 
 ```
 .get('localhost:3001/users')
 ```
-Create new users: 
+
+**Create new user**: 
 ```
 .post('localhost:3001/users', {
 	"username": "fart",
@@ -38,9 +39,30 @@ Create new users:
 	"userType": "host"
 })
 ```
-Login: returns 200 if username and password are valid, 400 if not.
+**get a single user**
 ```
-.get('localhost:3001/login', {
+.get('localhost:3001/user/:id')
+```
+**edit user info**
+```
+.put('localhost:3001/user/:id', {
+	any field you want to edit goes here
+})
+```
+**new listing**
+```
+.post('localhost:3001/u/listing', {
+	"hostid": "123455786",
+	"title": "This storage rocks!",
+	"duration": "1 billion years",
+	"description": "u rly wanna put ur stuff here it rox"
+})
+```
+
+**Login**: 
+returns 200 if username and password are valid, 400 if not.
+```
+.post('localhost:3001/login', {
     "username":"fart",
     "password": "password"
 })
