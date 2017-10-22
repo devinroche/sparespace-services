@@ -14,15 +14,6 @@ var user = new Schema ({
     isRenting: { type: Boolean, default: false },
     isHosting: { type: Boolean, default: false },
     isVerified: {type: Boolean,default: false},
-    hosting: [
-        {name: String, contact: {email: String, phone: String}, price: String, duration: String, startDate: Date}
-    ],
-    renting: [
-        {name: String, contact: {email: String, phone: String}, price: String, address: String, duration: String, startDate: Date}
-    ],
-    post: [
-        {title: String, duration: String, startDate: Date, description: String, price: String}
-    ]
 }, { collection: 'sparespaceusers' })
 
 user.plugin(uniqueValidator)
