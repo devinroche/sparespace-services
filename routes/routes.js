@@ -1,4 +1,4 @@
-const helpers = require("../controllers/serverHelper");
+const helpers = require("../controllers/userHelper");
 const listHelper = require("../controllers/listingHelper");
 
 module.exports = function(app) {
