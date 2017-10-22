@@ -4,20 +4,17 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const User = require("./models/userModel")
 const Listing = require('./models/listingModel')
-require('dotenv').load();
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
+const routes = require('./routes/routes')
 
-var expressValidator = require('express-validator');
+require('dotenv').load();
 
 const port = process.env.PORT || 3001
 const app = express()
 
-var helpers = require("./controllers/serverHelper")
-const routes = require('./routes/routes')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(expressValidator()); 
 app.use(cors())
 
 routes(app);
@@ -25,6 +22,3 @@ app.listen(port)
 
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.DB_CONNECT)
-var db = mongoose.connection;
-
-require("./routes/routes.js")(app, bodyParser)
