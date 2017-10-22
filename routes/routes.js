@@ -1,11 +1,12 @@
 const helpers = require("../controllers/serverHelper");
+const listHelper = require("../controllers/listingHelper");
 
 module.exports = function(app) {
     app.route('/users')
         .get(helpers.allUsers)
         .post(helpers.createUser)
 
-    app.route('/users/:id')
+    app.route('/user/:id')
         .get(helpers.getUser)
         .put(helpers.updateUser)
         .delete(helpers.deleteUser)
@@ -19,4 +20,7 @@ module.exports = function(app) {
     app.route('/marker')
         .post(helpers.getCords)
 
+    app.route('/u/listing')
+        .get(listHelper.allListings)
+        .post(listHelper.newListing)
 }
