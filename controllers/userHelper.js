@@ -66,6 +66,7 @@ module.exports = {
         User.findOneAndUpdate({'contact.email': req.params.email}, {isVerified: true}, function(err, user){
             if (err)
                 res.json(err)
+                
             res.send("account verified");
         })
     },
