@@ -16,12 +16,21 @@ module.exports = {
         });
     },
     allListings(req, res){
+        Listing.find({}, function (err, listing) {
+            if (err)
+                res.json(err);
+
+            res.send(listing)
+        })
+    },
+    listingDetails(req, res){
         Listing
-            .find({})
+            .findById(req.params.id)
             .populate({ path: '_host', model: User })
             .exec(function(err, list) { 
                 if (err)
                         res.json(err);
+                        
                 res.send(list)
             });
     }

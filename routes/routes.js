@@ -23,4 +23,7 @@ module.exports = function(app) {
     app.route('/u/listing')
         .get(listHelper.allListings)
         .post(listHelper.newListing)
+
+    app.route('/u/listing/:id')
+        .get(listHelper.listingDetails)
 }
