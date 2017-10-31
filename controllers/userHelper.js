@@ -37,7 +37,7 @@ module.exports = {
             if (err)
                 res.json(err)
 
-            res.send(200)
+            res.json({ message: 'user updated', user })
         })
     },
     deleteUser(req, res){
@@ -45,7 +45,7 @@ module.exports = {
             if(err)
                 res.json(err)
 
-            res.sendStatus(200);
+            res.json({user});
         })
     },
     loginUser(req, res){
