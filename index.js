@@ -21,4 +21,6 @@ routes(app);
 app.listen(port)
 
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.DB_CONNECT)
+mongoose.connect(process.env.DB_CONNECT, {useMongoClient: true} )
+
+module.exports = app
