@@ -17,4 +17,4 @@ var user = new Schema ({
 }, { collection: "sparespaceusers" });
 
 user.plugin(uniqueValidator);
-module.exports = mongoose.model('User', user);
+module.exports = mongoose.model("User", user);
