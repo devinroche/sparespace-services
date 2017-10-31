@@ -8,6 +8,6 @@ var listing = new Schema ({
     title: { type: String, required: true }, 
     duration: {type: String, required: true},
     description: {type: String, required: true}
-}, { collection: 'sparespacelisting' })
+}, { collection: "sparespacelisting" });
 
 module.exports = mongoose.model("Listing", listing);
