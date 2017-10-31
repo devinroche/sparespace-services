@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator');
-const Schema = mongoose.Schema 
+const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
+const Schema = mongoose.Schema;
 
 var user = new Schema ({
     fullname: { type: String, required: true }, 
@@ -14,7 +14,7 @@ var user = new Schema ({
     isRenting: { type: Boolean, default: false },
     isHosting: { type: Boolean, default: false },
     isVerified: {type: Boolean,default: false},
-}, { collection: 'sparespaceusers' })
+}, { collection: "sparespaceusers" });
 
-user.plugin(uniqueValidator)
-module.exports = mongoose.model('User', user)
+user.plugin(uniqueValidator);
+module.exports = mongoose.model("User", user);
