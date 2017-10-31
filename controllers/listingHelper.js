@@ -7,7 +7,7 @@ const Listing = mongoose.model("Listing");
 module.exports = {
     newListing(req, res) {
         req.body._host = mongoose.Types.ObjectId(req.body._host);
-        var newListing = new Listing(req.body)
+        var newListing = new Listing(req.body);
         newListing.save(function (err, listing) {
             if(err)
                 res.json(err);
