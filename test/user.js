@@ -1,25 +1,25 @@
 let mongoose = require("mongoose");
-let User = require('../models/userModel');
+let User = require("../models/userModel");
 
 //Require the dev-dependencies
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = require('../index');
+let chai = require("chai");
+let chaiHttp = require("chai-http");
+let server = require("../index");
 let should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Users', () => {
+describe("Users", () => {
     beforeEach((done) => {
         User.remove({}, (err) => {
             done();
         });
     });
 
-    describe('/GET users', () => {
-        it('it should GET all the users', (done) => {
+    describe("/GET users", () => {
+        it("it should GET all the users", (done) => {
             chai.request(server)
-                .get('/users')
+                .get("/users")
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -29,8 +29,8 @@ describe('Users', () => {
         });
     });
 
-    describe('/POST users', () => {
-        it('it should NOT POST a user without password field', (done) => {
+    describe("/POST users", () => {
+        it("it should NOT POST a user without password field", (done) => {
             let user = {
                 fullname: "Devin Roche",
                 contact: {
@@ -38,23 +38,23 @@ describe('Users', () => {
                     phone: "123-456-7890",
                 },
                 userType: "host"
-            }
+            };
 
             chai.request(server)
-                .post('/users')
+                .post("/users")
                 .send(user)
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('errors');
-                    res.body.errors.should.have.property('password');
-                    res.body.errors.password.should.have.property('kind').eql('required');
+                    res.body.should.be.a("object");
+                    res.body.should.have.property("errors");
+                    res.body.errors.should.have.property("password");
+                    res.body.errors.password.should.have.property("kind").eql("required");
                     done();
                 });
         });
 
 
-        it('it should  POST a new user', (done) => {
+        it("it should  POST a new user", (done) => {
             let user = {
                 fullname: "Devin Roche",
                 password: "fart",
@@ -63,25 +63,25 @@ describe('Users', () => {
                     phone: "123-456-7890",
                 },
                 userType: "host"
-            }
+            };
 
             chai.request(server)
-                .post('/users')
+                .post("/users")
                 .send(user)
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('fullname');
-                    res.body.should.have.property('password');
-                    res.body.should.have.property('contact');
-                    res.body.should.have.property('userType');
+                    res.body.should.be.a("object");
+                    res.body.should.have.property("fullname");
+                    res.body.should.have.property("password");
+                    res.body.should.have.property("contact");
+                    res.body.should.have.property("userType");
                     done();
                 });
         });
     });
 
-    describe('/GET/:id user', () => {
-        it('it should GET a user by the given id', (done) => {
+    describe("/GET/:id user", () => {
+        it("it should GET a user by the given id", (done) => {
             let user = new User({
                 fullname: "Devin Roche",
                 password: "fart",
@@ -94,18 +94,18 @@ describe('Users', () => {
 
             user.save((err, user) => {
                 chai.request(server)
-                    .get('/user/' + user.id)
+                    .get("/user/" + user.id)
                     .send(user)
                     .end((err, res) => {
                         res.should.have.status(200);
-                        res.body.should.be.a('object');
-                        res.body.should.have.property('fullname');
-                        res.body.should.have.property('password');
-                        res.body.should.have.property('contact');
-                        res.body.contact.should.have.property('email');
-                        res.body.contact.should.have.property('phone');
-                        res.body.should.have.property('userType');
-                        res.body.should.have.property('_id').eql(user.id);
+                        res.body.should.be.a("object");
+                        res.body.should.have.property("fullname");
+                        res.body.should.have.property("password");
+                        res.body.should.have.property("contact");
+                        res.body.contact.should.have.property("email");
+                        res.body.contact.should.have.property("phone");
+                        res.body.should.have.property("userType");
+                        res.body.should.have.property("_id").eql(user.id);
                         done();
                     });
             });
@@ -113,8 +113,8 @@ describe('Users', () => {
         });
     });
 
-    describe('/PUT/:id user', () => {
-        it('it should UPDATE a user given the id', (done) => {
+    describe("/PUT/:id user", () => {
+        it("it should UPDATE a user given the id", (done) => {
             let user = new User({
                 fullname: "Devin Roche",
                 password: "fart",
@@ -123,10 +123,10 @@ describe('Users', () => {
                     phone: "123-456-7890",
                 },
                 userType: "host"
-            })
+            });
             user.save((err, book) => {
                 chai.request(server)
-                    .put('/user/' + user.id)
+                    .put("/user/" + user.id)
                     .send({
                         fullname: "Devin Roche",
                         password: "poop",
@@ -138,17 +138,17 @@ describe('Users', () => {
                     })
                     .end((err, res) => {
                         res.should.have.status(200);
-                        res.body.should.be.a('object');
-                        res.body.should.have.property('message').eql('user updated');
-                        res.body.user.should.have.property('password').eql('poop');
+                        res.body.should.be.a("object");
+                        res.body.should.have.property("message").eql("user updated");
+                        res.body.user.should.have.property("password").eql("poop");
                         done();
                     });
             });
         });
     });
 
-    describe('/DELETE/:id user', () => {
-        it('it should DELETE a user given the id', (done) => {
+    describe("/DELETE/:id user", () => {
+        it("it should DELETE a user given the id", (done) => {
             let user = new User({
                 fullname: "Devin Roche",
                 password: "fart",
@@ -157,15 +157,15 @@ describe('Users', () => {
                     phone: "123-456-7890",
                 },
                 userType: "host"
-            })
+            });
             user.save((err, user) => {
                 chai.request(server)
-                    .delete('/user/' + user.id)
+                    .delete("/user/" + user.id)
                     .end((err, res) => {
                         res.should.have.status(200);
-                        res.body.should.be.a('object');
-                        res.body.user.should.have.property('ok').eql(1);
-                        res.body.user.should.have.property('n').eql(1);
+                        res.body.should.be.a("object");
+                        res.body.user.should.have.property("ok").eql(1);
+                        res.body.user.should.have.property("n").eql(1);
                         done();
                     });
             });
