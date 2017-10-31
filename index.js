@@ -9,8 +9,8 @@ const routes = require("./routes/routes");
 
 require("dotenv").load();
 
-const port = process.env.PORT || 3001
-const app = express()
+const port = process.env.PORT || 3001;
+const app = express();
 
 
 app.use(bodyParser.json());
@@ -20,7 +20,7 @@ app.use(cors())
 routes(app);
 app.listen(port)
 
-mongoose.Promise = global.Promise
-mongoose.connect(process.env.DB_CONNECT, {useMongoClient: true} )
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.DB_CONNECT, {useMongoClient: true} );
 
-module.exports = app
+module.exports = app;
