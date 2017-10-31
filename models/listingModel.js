@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator');
-const Schema = mongoose.Schema 
-const User = mongoose.model('User')
+const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
+const Schema = mongoose.Schema;
+const User = mongoose.model("User");
 
 var listing = new Schema ({
     _host: { type: Schema.Types.ObjectId, ref: "User", required: true }, 
@@ -10,4 +10,4 @@ var listing = new Schema ({
     description: {type: String, required: true}
 }, { collection: 'sparespacelisting' })
 
-module.exports = mongoose.model('Listing', listing);
+module.exports = mongoose.model("Listing", listing);

@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
-const mailHelper = require('./mailHelper')
-const User = mongoose.model('User')
+const mongoose = require("mongoose");
+const mailHelper = require("./mailHelper")
+const User = mongoose.model("User")
+const googleMapsClient = require("@google/maps");
 
 
 module.exports = {
@@ -37,7 +38,7 @@ module.exports = {
             if (err)
                 res.json(err);
 
-            res.json({ message: 'user updated', user });
+            res.json({ message: "user updated", user });
         })
     },
     deleteUser(req, res){
@@ -49,11 +50,11 @@ module.exports = {
         })
     },
     loginUser(req, res){
-        User.find({'contact.email': req.body.email, password: req.body.password}, function (err, user) {
+        User.find({"contact.email": req.body.email, password: req.body.password}, function (err, user) {
             if (err)
                 res.json(err);
 
-            if(user.length == 0){
+            if(user.length === 0){
                 res.sendStatus(404);
             }
             else{
@@ -62,8 +63,8 @@ module.exports = {
         })
     },
 
-    verify_user(req,res) {
-        User.findOneAndUpdate({'contact.email': req.params.email}, {isVerified: true}, function(err, user){
+    verifyUser(req,res) {
+        User.findOneAndUpdate({"contact.email": req.params.email}, {isVerified: true}, function(err, user){
             if (err)
                 res.json(err)
                 
@@ -72,7 +73,7 @@ module.exports = {
     },
 
     getCords(req,res) { 
-        var googleMapsClient = require('@google/maps').createClient({
+        googleMapsClient.createClient({
             key: process.env.GMAPS
         });
 
