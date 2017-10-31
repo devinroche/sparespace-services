@@ -10,4 +10,4 @@ var listing = new Schema ({
     description: {type: String, required: true}
 }, { collection: 'sparespacelisting' })
 
-module.exports = mongoose.model('Listing', listing)
+module.exports = mongoose.model('Listing', listing);
