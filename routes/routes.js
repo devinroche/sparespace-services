@@ -15,7 +15,7 @@ module.exports = function(app) {
         .post(helpers.loginUser);
 
     app.route("/verify/:email")
-    	.get(helpers.verifyUser);
+        .get(helpers.verifyUser);
 
     app.route("/marker")
         .post(helpers.getCords);
@@ -26,4 +26,4 @@ module.exports = function(app) {
 
     app.route("/u/listing/:id")
         .get(listHelper.listingDetails);
-}
+};
