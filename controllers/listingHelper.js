@@ -10,7 +10,7 @@ module.exports = {
         var newListing = new Listing(req.body)
         newListing.save(function (err, listing) {
             if(err)
-                res.json(err)
+                res.json(err);
 
             res.send(listing);
         });
@@ -20,7 +20,7 @@ module.exports = {
             if (err)
                 res.json(err);
 
-            res.send(listing)
+            res.send(listing);
         })
     },
     listingDetails(req, res){
@@ -31,7 +31,7 @@ module.exports = {
                 if (err)
                         res.json(err);
                         
-                res.send(list)
+                res.send(list);
             });
     }
 }
