@@ -15,10 +15,10 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors());
 
 routes(app);
-app.listen(port)
+app.listen(port);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_CONNECT, {useMongoClient: true} );

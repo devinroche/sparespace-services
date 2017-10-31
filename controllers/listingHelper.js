@@ -9,8 +9,9 @@ module.exports = {
         req.body._host = mongoose.Types.ObjectId(req.body._host);
         var newListing = new Listing(req.body);
         newListing.save(function (err, listing) {
-            if(err)
+            if(err){
                 res.json(err);
+            }
 
             res.send(listing);
         });
@@ -21,16 +22,17 @@ module.exports = {
                 res.json(err);
 
             res.send(listing);
-        })
+        });
     },
     listingDetails(req, res){
         Listing
             .findById(req.params.id)
             .populate({ path: "_host", model: User })
             .exec(function(err, list) { 
-                if (err)
-                        res.json(err);
-                        
+                if (err){
+                    res.json(err);
+                }
+
                 res.send(list);
             });
     }
