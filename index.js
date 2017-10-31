@@ -1,24 +1,26 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const User = require("./models/userModel")
-const Listing = require('./models/listingModel')
-const cookieParser = require('cookie-parser');
-const routes = require('./routes/routes')
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const User = require("./models/userModel");
+const Listing = require("./models/listingModel");
+const cookieParser = require("cookie-parser");
+const routes = require("./routes/routes");
 
-require('dotenv').load();
+require("dotenv").load();
 
-const port = process.env.PORT || 3001
-const app = express()
+const port = process.env.PORT || 3001;
+const app = express();
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors());
 
 routes(app);
-app.listen(port)
+app.listen(port);
 
-mongoose.Promise = global.Promise
-mongoose.connect(process.env.DB_CONNECT)
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.DB_CONNECT, {useMongoClient: true} );
+
+module.exports = app;
