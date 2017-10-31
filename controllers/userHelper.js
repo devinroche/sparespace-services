@@ -12,10 +12,10 @@ module.exports = {
             }
 
             res.send(user);
-        })
+        });
     },
     createUser(req, res) {
-        var newUser = new User(req.body)
+        var newUser = new User(req.body);
         newUser.save(function (err, user) {
             if(err){
                 res.json(err);
@@ -96,4 +96,4 @@ module.exports = {
 
     } 
 
-}
+};
