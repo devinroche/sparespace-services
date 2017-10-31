@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const mailHelper = require('./mailHelper')
-const User = mongoose.model('User')
-const Listing = mongoose.model('Listing')
+const mongoose = require("mongoose");
+const mailHelper = require("./mailHelper");
+const User = mongoose.model("User");
+const Listing = mongoose.model("Listing");
 
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
     listingDetails(req, res){
         Listing
             .findById(req.params.id)
-            .populate({ path: '_host', model: User })
+            .populate({ path: "_host", model: User })
             .exec(function(err, list) { 
                 if (err)
                         res.json(err);
