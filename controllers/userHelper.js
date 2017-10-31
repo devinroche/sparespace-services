@@ -76,7 +76,7 @@ module.exports = {
             }
 
             res.send("account verified");
-        })
+        });
     },
 
     getCords(req,res) { 

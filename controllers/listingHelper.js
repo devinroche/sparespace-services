@@ -18,8 +18,9 @@ module.exports = {
     },
     allListings(req, res){
         Listing.find({}, function (err, listing) {
-            if (err)
+            if (err){
                 res.json(err);
+            }
 
             res.send(listing);
         });
