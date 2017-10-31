@@ -19,7 +19,7 @@ module.exports = {
         }
         
         smtpTransport.sendMail(mailOptions, function(error, response){
-            smtpTransport.close()
+            smtpTransport.close();
         });
     },
 }
