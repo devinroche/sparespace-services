@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "lint": "./node_modules/.bin/eslint index.js routes models controllers || true",
+    "lint": "./node_modules/.bin/eslint . || true",
     "start": "nodemon index.js",
-    "lintfix": "eslint . --fix"
+    "lint-fix": "eslint . --fix || true"
   },
   "repository": {
     "type": "git",
@@ -21,28 +21,21 @@
   "homepage": "https://github.com/devinroche/sparespace-services#readme",
   "dependencies": {
     "@google/maps": "^0.4.3",
-    "aws-sdk": "^2.131.0",
     "body-parser": "^1.17.2",
     "chai": "4.1.2",
     "chai-http": "3.0.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "dotenv": "4.0.0",
-    "eslint-config-prettier": "2.6.0",
-    "eslint-plugin-prettier": "2.3.1",
     "express": "^4.15.4",
-    "express-validator": "^4.2.1",
     "mocha": "4.0.1",
     "mongodb": "^2.2.31",
     "mongoose": "^4.11.9",
     "mongoose-unique-validator": "^1.0.5",
     "nodemailer": "^4.1.3",
-    "nodemon": "^1.11.0",
-    "prettier": "1.7.4",
-    "xoauth2": "^1.2.0"
+    "nodemon": "^1.11.0"
   },
   "devDependencies": {
-    "babel-eslint": "8.0.1",
     "eslint": "4.10.0"
   }
 }

@@ -64,7 +64,7 @@ describe('Users', () => {
 					email: 'foo@email.com',
 					phone: '123-456-7890',
 				},
-				userType: 'host',
+				userType: 'host'
 			};
 
 			chai
