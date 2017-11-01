@@ -13,11 +13,27 @@ Or use homebrew!
 and 
 ```brew install mongodb```
 
-## Running the program
+## Running Stuffs
 
+### The application
 ```
 npm install
 npm start
+```
+
+### The test
+```
+npm test
+```
+
+### The linter
+```
+npm run lint
+```
+
+### The lint fixer (fixes *some* linter errors)
+```
+npm run lint-fix
 ```
 
 ## API
@@ -29,14 +45,13 @@ npm start
 **Create new user**: 
 ```
 .post('localhost:3001/users', {
-	"username": "fart",
-	"fullname": "head",
-	"password": "password",
-	"contact": {
-		"email": "poop@email.com",
-		"phone": "123-123-1234"
+	fullname: 'Devin Roche',
+	password: 'fart',
+	contact: {
+		email: 'foo@email.com',
+		phone: '123-456-7890',
 	},
-	"userType": "host"
+	userType: 'host'
 })
 ```
 **get a single user**
@@ -52,7 +67,7 @@ npm start
 **new listing**
 ```
 .post('localhost:3001/u/listing', {
-	"hostid": "123455786",
+	"_host": "123455786",
 	"title": "This storage rocks!",
 	"duration": "1 billion years",
 	"description": "u rly wanna put ur stuff here it rox"
