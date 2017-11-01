@@ -4,7 +4,7 @@
   "description": "backend for sparespace project",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "./node_modules/.bin/mocha",
     "lint": "./node_modules/.bin/eslint . || true",
     "start": "nodemon index.js",
     "lint-fix": "eslint . --fix || true"
