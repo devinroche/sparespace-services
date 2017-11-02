@@ -21,7 +21,7 @@
       "no-console": ["error", { "allow": ["warn", "error"] }],
       "curly": ["error", "multi"],
       "no-multi-spaces": "error",
-      "no-unused-vars": "error",
+      "no-unused-vars": ["error", { "varsIgnorePattern": "[mM]odel" }],
       "callback-return": "error",
       "global-require": "error",
       "no-mixed-requires": "error",

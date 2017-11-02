@@ -2,9 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const User = require('./models/userModel');
-const Listing = require('./models/listingModel');
-const cookieParser = require('cookie-parser');
 const routes = require('./routes/routes');
 
 require('dotenv').load();
