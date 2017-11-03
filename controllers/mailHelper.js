@@ -20,6 +20,8 @@ module.exports = {
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {
 			smtpTransport.close();
+
+			return error, response
 		});
 	},
 };
