@@ -25,7 +25,7 @@ describe('Users', () => {
 					res.should.have.status(200);
 					res.body.should.be.a('array');
 					res.body.length.should.be.eql(0);
-					done();
+				done();
 				});
 		});
 	});
@@ -51,7 +51,7 @@ describe('Users', () => {
 					res.body.should.have.property('errors');
 					res.body.errors.should.have.property('password');
 					res.body.errors.password.should.have.property('kind').eql('required');
-					done();
+				done();
 				});
 		});
 
@@ -77,7 +77,7 @@ describe('Users', () => {
 					res.body.should.have.property('password');
 					res.body.should.have.property('contact');
 					res.body.should.have.property('userType');
-					done();
+				done();
 				});
 		});
 	});
@@ -109,7 +109,7 @@ describe('Users', () => {
 						res.body.contact.should.have.property('phone');
 						res.body.should.have.property('userType');
 						res.body.should.have.property('_id').eql(user.id);
-						done();
+					done();
 					});
 			});
 		});
@@ -144,7 +144,7 @@ describe('Users', () => {
 						res.body.should.be.a('object');
 						res.body.should.have.property('message').eql('user updated');
 						res.body.user.should.have.property('password').eql('poop');
-						done();
+					done();
 					});
 			});
 		});
@@ -170,9 +170,10 @@ describe('Users', () => {
 						res.body.should.be.a('object');
 						res.body.user.should.have.property('ok').eql(1);
 						res.body.user.should.have.property('n').eql(1);
-						done();
+					done();
 					});
 			});
 		});
 	});
 });
+
