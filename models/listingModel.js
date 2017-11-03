@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
 
 const Schema = mongoose.Schema;
-const User = mongoose.model('User');
 
 const listing = new Schema(
 	{
