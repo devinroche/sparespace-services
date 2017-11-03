@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const mailHelper = require('./mailHelper');
-
+const userModel = require('../models/userModel')
 const User = mongoose.model('User');
 const googleMapsClient = require('@google/maps');
 
@@ -20,7 +20,6 @@ module.exports = {
 			if (err) 
 				res.json(err);
       
-
 			mailHelper.sendEmailVerify(req.body.contact.email);
 			res.send(user);
 		});
@@ -31,7 +30,6 @@ module.exports = {
 			if (err) 
 				res.json(err);
       
-
 			res.send(user);
 		});
 	},
@@ -83,7 +81,7 @@ module.exports = {
 					res.json(err);
         
 
-				res.send('account verified');
+				res.json({message: 'account verified', user});
 			});
 	},
 
