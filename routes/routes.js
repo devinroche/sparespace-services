@@ -17,10 +17,10 @@ module.exports = function (app) {
 
 	app.route('/marker').post(helpers.getCords);
 
-	app.route('/u/listing')
+	app.route('/listings')
 		.get(listHelper.allListings)
 		.post(listHelper.newListing);
 
-	app.route('/u/listing/:id')
+	app.route('/listing/:id')
 		.get(listHelper.listingDetails);
 };
