@@ -175,5 +175,67 @@ describe('Users', () => {
 			});
 		});
 	});
+
+	describe('/LOGIN/ user', () => {
+		it('it should LOGIN a user given the email and password', (done) => {
+			const user = new User({
+				fullname: 'Devin Roche',
+				password: 'fart',
+				contact: {
+					email: 'fart@email.com',
+					phone: '123-456-7890',
+				},
+				userType: 'host',
+			});
+			user.save((err, user) => {
+				chai
+					.request(server)
+					.post(`/login`)
+					.send({
+						email: 'fart@email.com',
+						password: 'fart'
+					})
+					.end((err, res) => {
+						res.should.have.status(200);
+						res.body.should.be.a('object');
+						res.body.should.have.property('password').eql('fart')
+						res.body.should.have.property('fullname').eql('Devin Roche')
+						res.body.should.have.property('userType').eql('host')
+						res.body.contact.should.have.property('email').eql('fart@email.com')
+						res.body.contact.should.have.property('phone').eql('123-456-7890')
+					done();
+					});
+			});
+		});
+	});
+
+	describe('/VERIFY/ user', () => {
+		it('it should verify a user', (done) => {
+			const user = new User({
+				fullname: 'Devin Roche',
+				password: 'fart',
+				contact: {
+					email: 'fart@email.com',
+					phone: '123-456-7890',
+				},
+				userType: 'host',
+			});
+			user.save((err, user) => {
+				chai
+					.request(server)
+					.get(`/verify/${user.contact.email}`)
+					.end((err, res) => {
+						res.should.have.status(200);
+						res.body.should.be.a('object');
+						res.body.should.have.property('message').eql('account verified')
+						res.body.user.should.have.property('fullname').eql('Devin Roche')
+						res.body.user.should.have.property('userType').eql('host')
+						res.body.user.contact.should.have.property('email').eql('fart@email.com')
+						res.body.user.contact.should.have.property('phone').eql('123-456-7890')
+					done();
+					});
+			});
+		});
+	});
 });
 
