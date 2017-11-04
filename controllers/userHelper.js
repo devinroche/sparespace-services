@@ -57,18 +57,17 @@ module.exports = {
 		});
 	},
 	loginUser(req, res) {
-		User.find(
+		User.findOne(
 			{ 'contact.email': req.body.email, password: req.body.password },
 			(err, user) => {
 				if (err) 
 					res.json(err);
         
-
 				if (user.length === 0) 
 					res.sendStatus(404);
 					
 				else 
-					res.send(user);
+					res.json(user);
         
 			});
 	},
