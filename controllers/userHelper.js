@@ -66,7 +66,10 @@ module.exports = {
 
 				if (user.length === 0) 
 					res.sendStatus(404);
+<<<<<<< HEAD
 					
+=======
+>>>>>>> 0859b73a880c833ee60c947188c2fdacba4f7583
 				else 
 					res.send(user);
         
