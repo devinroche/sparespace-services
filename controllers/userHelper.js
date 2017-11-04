@@ -66,6 +66,7 @@ module.exports = {
 
 				if (user.length === 0) 
 					res.sendStatus(404);
+					
 				else 
 					res.send(user);
         
