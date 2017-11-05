@@ -26,12 +26,12 @@ module.exports = {
 	listingDetails(req, res) {
 		Listing.findById(req.params.id)
 			.populate({ path: '_host', model: User })
-			.exec((err, list) => {
+			.exec((err, listing) => {
 				if (err) 
 					res.json(err);
         
 
-				res.send(list);
+				res.send(listing);
 			});
 	},
 };
