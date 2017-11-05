@@ -54,10 +54,11 @@ describe('Listings', () => {
 				.end((err, res) => {
 					res.should.have.status(200);
 					res.body.should.be.a('object');
+					res.body.should.have.property('_host');
 					res.body.should.have.property('title');
 					res.body.should.have.property('duration');
 					res.body.should.have.property('description');
-					// res.body.should.have.property('userType');
+					res.body.should.have.property('images');
 				done();
 				});
 		});
@@ -91,8 +92,8 @@ describe('Listings', () => {
                             res.body.should.be.a('object');
                             res.body.should.have.property('title');
                             res.body.should.have.property('duration');
-                            res.body.should.have.property('description');
-                            // res.body.should.have.property('userType');
+							res.body.should.have.property('description');
+							res.body.should.have.property('images');
                         done();
                     });
                 })
