@@ -39,8 +39,8 @@ npm run lint-fix
 ```
 
 ## api
-[users api](/routes/userdocs.md)
-[listings api](/routes/listingdocs.md)
+[users api](/docs/userdocs.md)
+[listings api](/docs/listingdocs.md)
 
 ## cool stuff we use
 - [travis-ci](https://travis-ci.org/)
