@@ -34,4 +34,12 @@ module.exports = {
 				res.send(listing);
 			});
 	},
+	clearAll(req, res){
+		Listing.remove({}, (err, listing) => {
+			if(err)
+				res.json(err)
+
+			res.send(listing)
+		})
+	}
 };

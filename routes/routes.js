@@ -23,4 +23,11 @@ module.exports = function (app) {
 
 	app.route('/listing/:id')
 		.get(listHelper.listingDetails);
+
+	//These are for testing.
+	app.route('/deleteListings')
+		.delete(listHelper.clearAll);
+
+	app.route('/deleteUsers')
+		.delete(helpers.clearAll);
 };

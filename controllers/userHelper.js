@@ -84,6 +84,14 @@ module.exports = {
 				res.json({message: 'account verified', user});
 			});
 	},
+	clearAll(req, res){
+		User.remove({}, (err, user) => {
+			if(err)
+				res.json(err)
+
+			res.send(user)
+		})
+	},
 
 	getCords(req, res) {
 		googleMapsClient.createClient({
