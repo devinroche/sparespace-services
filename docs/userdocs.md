@@ -47,3 +47,9 @@ when successful, sends user
     "password": "password"
 })
 ```
+
+**clear collection**
+only use this when testing!!!
+```
+.delete('localhost:3001/deleteUsers')
+```
