@@ -21,7 +21,7 @@ module.exports = {
 			if (err) 
 				res.json(err);
 
-			mailHelper.sendEmailVerify(req.body.contact.email, newUser._id);
+			mailHelper.verifyEmail(newUser.contact.email, newUser._id);
 			res.send(user);
 		});
 
@@ -79,12 +79,12 @@ module.exports = {
 
 	verifyUser(req, res) {
 		User.findOneAndUpdate(req.params._id, { isVerified: true }, {new: true}, (err, user) => {
-				if (err) 
-					res.json(err);
+			if (err) 
+				res.json(err);
         
 
-				res.json({message: 'account verified', user});
-			});
+			res.json({message: 'account verified', user});
+		});
 	},
 	clearAll(req, res){
 		User.remove({}, (err, user) => {

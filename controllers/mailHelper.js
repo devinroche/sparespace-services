@@ -1,9 +1,7 @@
 const nodemailer = require('nodemailer');
-const User = require('../models/userModel');
-const mongoose = require('mongoose');
 
 module.exports = {
-	sendEmailVerify(email, u_id) {
+	verifyEmail(email, userId) {
 		const smtpTransport = nodemailer.createTransport({
 			service: 'gmail',
 			host: 'smtp.gmail.com',
@@ -17,7 +15,7 @@ module.exports = {
 			to: email,
 			subject: 'Sparespace Verification',
 			text: 'fart',
-			html: `<p>Click <a href='http://localhost:3001/verify/${u_id}'>Here</a> to verify your account</p>`,
+			html: `<p>Click <a href='http://localhost:3001/verify/${userId}'>Here</a> to verify your account</p>`,
 		};
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {
