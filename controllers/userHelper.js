@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const mailHelper = require('./mailHelper');
 const userModel = require('../models/userModel')
 const User = mongoose.model('User');
+const bcrypt = require('bcrypt');
 const googleMapsClient = require('@google/maps');
 
 module.exports = {
@@ -16,13 +17,18 @@ module.exports = {
 	},
 	createUser(req, res) {
 		const newUser = new User(req.body);
-		newUser.save((err, user) => {
-			if (err) 
-				res.json(err);
-      
-			mailHelper.sendEmailVerify(req.body.contact.email);
-			res.send(user);
-		});
+
+		bcrypt.hash(newUser.password, 10, (err, hash) => {
+			newUser.password=hash
+			newUser.save((err, user) => {
+				if (err) 
+					res.json(err);
+		  
+				mailHelper.sendEmailVerify(req.body.contact.email);
+				res.send(user);
+			});
+
+		})
 	},
 
 	getUser(req, res) {
@@ -57,19 +63,22 @@ module.exports = {
 		});
 	},
 	loginUser(req, res) {
-		User.findOne(
-			{ 'contact.email': req.body.email, password: req.body.password },
-			(err, user) => {
-				if (err) 
-					res.json(err);
-        
+
+		User.findOne({'contact.email': req.body.email}, (err, user) => {
+
+			bcrypt.compare(req.body.password, user.password, function(e, r){
+				if (e) 
+					res.json(e);
+	
 				if (user.length === 0) 
 					res.sendStatus(404);
 					
 				else 
-					res.json(user);
-        
-			});
+					res.send(user);
+
+			})
+	
+		});
 	},
 
 	verifyUser(req, res) {
