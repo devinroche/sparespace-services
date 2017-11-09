@@ -17,18 +17,15 @@ module.exports = {
 	},
 	createUser(req, res) {
 		const newUser = new User(req.body);
+		
+		newUser.save((err, user) => {
+			if (err) 
+				res.json(err);
+	  
+			mailHelper.sendEmailVerify(req.body.contact.email);
+			res.send(user);
+		});
 
-		bcrypt.hash(newUser.password, 10, (err, hash) => {
-			newUser.password=hash
-			newUser.save((err, user) => {
-				if (err) 
-					res.json(err);
-		  
-				mailHelper.sendEmailVerify(req.body.contact.email);
-				res.send(user);
-			});
-
-		})
 	},
 
 	getUser(req, res) {
@@ -63,24 +60,21 @@ module.exports = {
 		});
 	},
 	loginUser(req, res) {
-
 		User.findOne({'contact.email': req.body.email}, (err, user) => {
-
 			if (err) 
 				res.json(err);
 
-			else{
-				bcrypt.compare(req.body.password, user.password, function(e, r){
-					if (e) 
-						res.json(e);
-		
-					if (user.length === 0) 
-						res.sendStatus(404);
-						
-					else 
-						res.send(user);
+			if(user){
+				user.comparePassword(req.body.password, function(err, isMatch) {
+					if (err) 
+						throw err;
 
-				})
+					res.send(isMatch)
+				});
+
+			}
+			else{
+				res.sendStatus(404);
 			}
 	
 		});
