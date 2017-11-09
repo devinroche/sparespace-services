@@ -80,10 +80,7 @@ module.exports = {
 	},
 
 	verifyUser(req, res) {
-		User.findOneAndUpdate(
-			{ 'contact.email': req.params.email },
-			{ isVerified: true },
-			(err, user) => {
+		User.findOneAndUpdate(req.params._id, { isVerified: true }, {new: true}, (err, user) => {
 				if (err) 
 					res.json(err);
         
