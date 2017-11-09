@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 
 // Require the dev-dependencies
+const bcrypt = require('bcrypt');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../index');
@@ -197,12 +198,7 @@ describe('Users', () => {
 					})
 					.end((err, res) => {
 						res.should.have.status(200);
-						res.body.should.be.a('object');
-						res.body.should.have.property('password').eql('fart')
-						res.body.should.have.property('fullname').eql('Devin Roche')
-						res.body.should.have.property('userType').eql('host')
-						res.body.contact.should.have.property('email').eql('fart@email.com')
-						res.body.contact.should.have.property('phone').eql('123-456-7890')
+						res.body.should.be.true;
 					done();
 					});
 			});
