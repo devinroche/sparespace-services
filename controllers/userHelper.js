@@ -20,8 +20,8 @@ module.exports = {
 		newUser.save((err, user) => {
 			if (err) 
 				res.json(err);
-	  
-			mailHelper.sendEmailVerify(req.body.contact.email);
+
+			mailHelper.verifyEmail(newUser.contact.email, newUser._id);
 			res.send(user);
 		});
 
@@ -70,26 +70,21 @@ module.exports = {
 
 					res.send(isMatch)
 				});
-
 			
 			else
 				res.sendStatus(404);
-			
-	
+
 		});
 	},
 
 	verifyUser(req, res) {
-		User.findOneAndUpdate(
-			{ 'contact.email': req.params.email },
-			{ isVerified: true },
-			(err, user) => {
-				if (err) 
-					res.json(err);
+		User.findOneAndUpdate(req.params._id, { isVerified: true }, {new: true}, (err, user) => {
+			if (err) 
+				res.json(err);
         
 
-				res.json({message: 'account verified', user});
-			});
+			res.json({message: 'account verified', user});
+		});
 	},
 	clearAll(req, res){
 		User.remove({}, (err, user) => {
