@@ -20,8 +20,8 @@ module.exports = {
 		newUser.save((err, user) => {
 			if (err) 
 				res.json(err);
-	  
-			mailHelper.sendEmailVerify(req.body.contact.email);
+
+			mailHelper.sendEmailVerify(req.body.contact.email, newUser._id);
 			res.send(user);
 		});
 
@@ -70,12 +70,10 @@ module.exports = {
 
 					res.send(isMatch)
 				});
-
 			
 			else
 				res.sendStatus(404);
-			
-	
+
 		});
 	},
 
