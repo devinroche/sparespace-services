@@ -25,3 +25,9 @@ this wil return the listing when successful.
 ```
 .get('localhost:3001/listing/:listing_id')
 ```
+
+**clear collection**
+only use this when testing!!!
+```
+.delete('localhost:3001/deleteListings')
+```
