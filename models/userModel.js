@@ -23,33 +23,33 @@ const user = new Schema(
 
 //before save run this
 user.pre('save', function(next) {
-	var user = this;
+	const user = this;
 
 	if (!user.isModified('password')) 
 		return next();
 
-    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+	bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
 		if(err) 
 			return next(err);
 
-        bcrypt.hash(user.password, salt, function(err, hash){
+		bcrypt.hash(user.password, salt, (err, hash) => {
 			if(err) 
 				return next(err);
 
-            user.password = hash;
-            next();
-        });
-    });
+			user.password = hash;
+			next();
+		});
+	});
 });
 
 //compare login string and encrypted password
 user.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+	bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
 		if (err) 
 			return cb(err);
 			
-        cb(null, isMatch);
-    });
+		cb(null, isMatch);
+	});
 };
 
 user.plugin(uniqueValidator);

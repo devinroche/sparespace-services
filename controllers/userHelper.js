@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const mailHelper = require('./mailHelper');
 const userModel = require('../models/userModel')
 const User = mongoose.model('User');
-const bcrypt = require('bcrypt');
 const googleMapsClient = require('@google/maps');
 
 module.exports = {
@@ -64,18 +63,18 @@ module.exports = {
 			if (err) 
 				res.json(err);
 
-			if(user){
-				user.comparePassword(req.body.password, function(err, isMatch) {
+			if(user)
+				user.comparePassword(req.body.password, (err, isMatch) => {
 					if (err) 
 						throw err;
 
 					res.send(isMatch)
 				});
 
-			}
-			else{
+			
+			else
 				res.sendStatus(404);
-			}
+			
 	
 		});
 	},
