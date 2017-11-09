@@ -3,7 +3,7 @@ const User = require('../models/userModel');
 const mongoose = require('mongoose');
 
 module.exports = {
-	async sendEmailVerify(email, u_id) {
+	sendEmailVerify(email, u_id) {
 		const smtpTransport = nodemailer.createTransport({
 			service: 'gmail',
 			host: 'smtp.gmail.com',
