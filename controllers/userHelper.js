@@ -66,17 +66,22 @@ module.exports = {
 
 		User.findOne({'contact.email': req.body.email}, (err, user) => {
 
-			bcrypt.compare(req.body.password, user.password, function(e, r){
-				if (e) 
-					res.json(e);
-	
-				if (user.length === 0) 
-					res.sendStatus(404);
-					
-				else 
-					res.send(user);
+			if (err) 
+				res.json(err);
 
-			})
+			else{
+				bcrypt.compare(req.body.password, user.password, function(e, r){
+					if (e) 
+						res.json(e);
+		
+					if (user.length === 0) 
+						res.sendStatus(404);
+						
+					else 
+						res.send(user);
+
+				})
+			}
 	
 		});
 	},
