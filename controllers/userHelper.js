@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const mailHelper = require('./mailHelper');
 const userModel = require('../models/userModel')
+const listingModel = require('../models/listingModel')
+const Listing = mongoose.model('Listing')
 const User = mongoose.model('User');
 const googleMapsClient = require('@google/maps');
 
@@ -93,6 +95,14 @@ module.exports = {
 
 			res.send(user)
 		})
+	},
+	sendInterest(req, res){
+		User.find({'_id': { $in: [mongoose.Types.ObjectId(req.body.renter), mongoose.Types.ObjectId(req.body.host)]}}, function(err, user){
+			Listing.findById(req.body.listing, (err, listing) => {
+				mailHelper.expressInterest(user[0].contact.email, user[1].contact.email, listing);
+				res.send(user);
+			})
+		});
 	},
 
 	getCords(req, res) {

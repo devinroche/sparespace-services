@@ -30,4 +30,7 @@ module.exports = function (app) {
 
 	app.route('/deleteUsers')
 		.delete(helpers.clearAll);
+
+	app.route('/p2p')
+		.post(helpers.sendInterest);
 };
