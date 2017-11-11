@@ -13,7 +13,7 @@ module.exports = function (app) {
 
 	app.route('/login').post(helpers.loginUser);
 
-	app.route('/verify/:email').get(helpers.verifyUser);
+	app.route('/verify/:id').get(helpers.verifyUser);
 
 	app.route('/marker').post(helpers.getCords);
 

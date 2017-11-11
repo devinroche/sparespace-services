@@ -23,7 +23,7 @@ module.exports = {
 			if (err) 
 				res.json(err);
 
-			mailHelper.verifyEmail(newUser.contact.email, newUser._id);
+			mailHelper.verifyEmail(newUser);
 			res.send(user);
 		});
 
@@ -70,7 +70,7 @@ module.exports = {
 					if (err) 
 						throw err;
 
-					res.send(isMatch)
+					res.send({isMatch, id: user._id})
 				});
 			
 			else
@@ -99,7 +99,7 @@ module.exports = {
 	sendInterest(req, res){
 		User.find({'_id': { $in: [mongoose.Types.ObjectId(req.body.renter), mongoose.Types.ObjectId(req.body.host)]}}, function(err, user){
 			Listing.findById(req.body.listing, (err, listing) => {
-				mailHelper.expressInterest(user[0].contact.email, user[1].contact.email, listing);
+				mailHelper.expressInterest(user[0], user[1], listing);
 				res.send(user);
 			})
 		});

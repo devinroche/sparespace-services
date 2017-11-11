@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const hbs = require('nodemailer-express-handlebars');
 require('dotenv').config()
 
 let smtpTransport = nodemailer.createTransport({
@@ -10,14 +11,27 @@ let smtpTransport = nodemailer.createTransport({
 	},
 });
 
+const options = {
+	viewEngine: {
+			extname: '.hbs',
+			layoutsDir: 'views/',
+	},
+	viewPath: 'views/',
+	extName: '.hbs'
+};
+
+smtpTransport.use('compile', hbs(options));
+
 module.exports = {
-	verifyEmail(email, userId) {
+	verifyEmail(user) {
 		const mailOptions = {
-			to: email,
-			subject: 'Sparespace Verification',
-			text: 'fart',
-			html: `<p>Click <a href='http://localhost:3001/verify/${userId}'>Here</a> to verify your account</p>`,
-		};
+			to: user.contact.email,
+			subject: 'Verify your account',
+			template: 'verify',
+			context: {
+					u: user
+			}
+		}
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {
 			if(error){
@@ -32,33 +46,19 @@ module.exports = {
 			return error, response
 		});
 	},
-	expressInterest(host, renter, listing){
+	expressInterest(renter, host, listing){
 		const mailOptions = {
-			replyTo: renter,
-			to: host,
-			subject: 'bruh show me ur shit!',
-			text: 'fart',
-			html: `
-			<div>
-			<p>yo dawg i lyke ur space! (you can reply directly to this email #turnt)</p>
-			<ul>
-				<li>${listing.title}</li>
-				<li>${listing.price}</li>
-				<li>${listing.description}</li>
-			</ul>
-			</div>`,
-		};
+				replyTo: renter.contact.email,
+				to: host.contact.email,
+				subject: 'bruh show me ur shit!',
+				template: 'interest',
+				context: {
+						l: listing,
+						h: host
+				}
+		}
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {
-			if(error){
-				console.log('[ERROR] Message NOT sent: ', error);
-				success = false;
-			  }
-			  else {
-				console.log('[INFO] Message Sent: ' + response.message);
-			  }
-
-
 			return error, response
 		});
 	}
