@@ -96,15 +96,6 @@ module.exports = {
 			res.send(user)
 		})
 	},
-	sendInterest(req, res){
-		User.find({'_id': { $in: [mongoose.Types.ObjectId(req.body.renter), mongoose.Types.ObjectId(req.body.host)]}}, function(err, user){
-			Listing.findById(req.body.listing, (err, listing) => {
-				mailHelper.expressInterest(user[0], user[1], listing);
-				res.send(user);
-			})
-		});
-	},
-
 	getCords(req, res) {
 		googleMapsClient.createClient({
 			key: process.env.GMAPS,

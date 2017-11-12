@@ -13,8 +13,8 @@ let smtpTransport = nodemailer.createTransport({
 
 const options = {
 	viewEngine: {
-			extname: '.hbs',
-			layoutsDir: 'views/',
+		extname: '.hbs',
+		layoutsDir: 'views/',
 	},
 	viewPath: 'views/',
 	extName: '.hbs'
