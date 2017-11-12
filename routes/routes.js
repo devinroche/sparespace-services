@@ -11,11 +11,14 @@ module.exports = function (app) {
 		.put(helpers.updateUser)
 		.delete(helpers.deleteUser);
 
-	app.route('/login').post(helpers.loginUser);
+	app.route('/login')
+		.post(helpers.loginUser);
 
-	app.route('/verify/:id').get(helpers.verifyUser);
+	app.route('/verify/:id')
+		.get(helpers.verifyUser);
 
-	app.route('/marker').post(helpers.getCords);
+	app.route('/marker')
+		.post(helpers.getCords);
 
 	app.route('/listings')
 		.get(listHelper.allListings)
@@ -24,13 +27,13 @@ module.exports = function (app) {
 	app.route('/listing/:id')
 		.get(listHelper.listingDetails);
 
+	app.route('/p2p')
+		.post(listHelper.sendInterest);
+
 	//These are for testing.
 	app.route('/deleteListings')
 		.delete(listHelper.clearAll);
 
 	app.route('/deleteUsers')
 		.delete(helpers.clearAll);
-
-	app.route('/p2p')
-		.post(helpers.sendInterest);
 };

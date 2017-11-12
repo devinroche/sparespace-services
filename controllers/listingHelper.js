@@ -24,14 +24,14 @@ module.exports = {
 		});
 	},
 	listingDetails(req, res) {
-		Listing.findById(req.params.id)
-			.populate({ path: '_host', model: User })
-			.exec((err, listing) => {
-				if (err) 
+		Listing.findOne({'_id': req.params.id} , (err, listing) => {
+				if (err)
 					res.json(err);
-        
-
-				res.send(listing);
+		
+				else {
+					console.log(listing)
+					res.send(listing);
+				}
 			});
 	},
 	clearAll(req, res){
@@ -41,5 +41,13 @@ module.exports = {
 
 			res.send(listing)
 		})
+	},
+	sendInterest(req, res){
+		User.find({'_id': { $in: [mongoose.Types.ObjectId(req.body.renter), mongoose.Types.ObjectId(req.body.host)]}}, function(err, user){
+			Listing.findById(req.body.listing, (err, listing) => {
+				mailHelper.expressInterest(user[0], user[1], listing);
+				res.send("sent");
+			})
+		});
 	}
 };
