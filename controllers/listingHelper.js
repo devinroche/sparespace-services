@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const listingModel = require('../models/listingModel')
+const mailHelper = require('./mailHelper')
 const User = mongoose.model('User');
 const Listing = mongoose.model('Listing');
 
