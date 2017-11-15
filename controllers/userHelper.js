@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const mailHelper = require('./mailHelper');
 const userModel = require('../models/userModel')
+const listingModel = require('../models/listingModel')
+const Listing = mongoose.model('Listing')
 const User = mongoose.model('User');
 const googleMapsClient = require('@google/maps');
 
@@ -21,7 +23,7 @@ module.exports = {
 			if (err) 
 				res.json(err);
 
-			mailHelper.verifyEmail(newUser.contact.email, newUser._id);
+			mailHelper.verifyEmail(newUser);
 			res.send(user);
 		});
 
@@ -68,7 +70,7 @@ module.exports = {
 					if (err) 
 						throw err;
 
-					res.send(isMatch)
+					res.send({isMatch, id: user._id})
 				});
 			
 			else
@@ -94,7 +96,6 @@ module.exports = {
 			res.send(user)
 		})
 	},
-
 	getCords(req, res) {
 		googleMapsClient.createClient({
 			key: process.env.GMAPS,
