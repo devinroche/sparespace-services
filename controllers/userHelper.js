@@ -70,7 +70,7 @@ module.exports = {
 					if (err) 
 						throw err;
 
-					res.send({isMatch, id: user._id})
+					res.send({isMatch, id: user._id, v: user.isVerified})
 				});
 			
 			else
@@ -95,6 +95,10 @@ module.exports = {
 
 			res.send(user)
 		})
+	},
+	resendVerification(req, res){
+		mailHelper.verifyEmail(req.body.id);
+		res.send(200)
 	},
 	getCords(req, res) {
 		googleMapsClient.createClient({
