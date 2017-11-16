@@ -102,7 +102,7 @@ module.exports = {
 	},
 	getAllCords(req, res) {
 		//get all cords from all postings
-		Listing.find({},'lat lng', (err, listing) => {
+		Listing.find({},'lat lng title', (err, listing) => {
 			if (err) 
 				res.json(err);
       
