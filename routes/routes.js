@@ -17,8 +17,9 @@ module.exports = function (app) {
 	app.route('/verify/:id')
 		.get(helpers.verifyUser);
 
-	app.route('/marker')
-		.post(helpers.getCords);
+	app.route('/cordinates')
+		.get(helpers.getAllCords)
+		.post(helpers.cords_to_address);
 
 	app.route('/listings')
 		.get(listHelper.allListings)
