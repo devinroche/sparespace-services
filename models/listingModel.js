@@ -9,7 +9,8 @@ const listing = new Schema(
 		price: { type: String, required: true },
 		description: { type: String, required: true },
 		location: {type: String, required: true},
-		images: [String]
+		images: [String],
+		interested: [String]
 	},{ collection: 'sparespacelisting' }
 );
 
