@@ -100,21 +100,27 @@ module.exports = {
 		mailHelper.verifyEmail(req.body.id);
 		res.send(200)
 	},
-	getCords(req, res) {
-		googleMapsClient.createClient({
-			key: process.env.GMAPS,
+	getAllCords(req, res) {
+		//get all cords from all postings
+		Listing.find({},'lat lng title', (err, listing) => {
+			if (err) 
+				res.json(err);
+      
+
+			res.send(listing);
+		});
+	},
+	cords_to_address(req,res) {
+		var googleMapsClient = require('@google/maps').createClient({
+  			key: process.env.GMAPS
 		});
 
-		googleMapsClient.geocode(
-			{
-				address: req.body.address,
-			},
-			(err, response) => {
-				if (!err) 
-					res.send(response.json.results);
-				else 
-					res.send(404);
-        
-			});
+		googleMapsClient.geocode({
+		  address: req.body.address
+		}, function(err, response) {
+		  if (!err) {
+		    res.send(response.json.results[0].geometry.location);
+		  }
+		});
 	}
 };

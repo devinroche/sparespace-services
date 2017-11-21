@@ -11,6 +11,8 @@ const listing = new Schema(
 		location: {type: String, required: true},
 		images: [String],
 		interested: [String]
+		lat: {type: String},
+		lng: {type: String},
 	},{ collection: 'sparespacelisting' }
 );
 
