@@ -13,6 +13,7 @@ const user = new Schema(
 			email: { type: String, required: true, unique: true },
 			address: String,
 		},
+		interested: [String],
 		isVerified: { type: Boolean, default: false }
 	},{ collection: 'sparespaceusers' }
 );

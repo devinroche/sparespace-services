@@ -45,10 +45,20 @@ module.exports = {
 	},
 	sendInterest(req, res){
 		User.find({'_id': { $in: [mongoose.Types.ObjectId(req.body.renter), mongoose.Types.ObjectId(req.body.host)]}}, function(err, user){
-			Listing.findById(req.body.listing, (err, listing) => {
-				mailHelper.expressInterest(user[0], user[1], listing);
-				res.send("sent");
+			Listing.findByIdAndUpdate(req.body.listing, 
+				{ $push: { interested: req.body.renter} }, 
+				{safe: true, upsert: true},
+				(err, listing) => {
+					mailHelper.expressInterest(user[0], user[1], listing);
+					res.send("sent");
+
 			})
 		});
+
+		User.findByIdAndUpdate(req.body.renter, {$push: {interested: req.body.listing}}, 
+			{safe: true, upsert: true},
+			(err, user) => {
+				console.log(user)
+		})
 	}
 };
