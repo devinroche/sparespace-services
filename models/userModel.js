@@ -11,7 +11,6 @@ const user = new Schema(
 		password: { type: String, required: true },
 		contact: {
 			email: { type: String, required: true, unique: true },
-			address: String,
 		},
 		interested: [String],
 		isVerified: { type: Boolean, default: false }
