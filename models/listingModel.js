@@ -10,9 +10,9 @@ const listing = new Schema(
 		description: { type: String, required: true },
 		location: {type: String, required: true},
 		images: [String],
-		interested: [String]
+		interested: [String],
 		lat: {type: String},
-		lng: {type: String},
+		lng: {type: String}
 	},{ collection: 'sparespacelisting' }
 );
 
