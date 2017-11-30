@@ -25,7 +25,7 @@ smtpTransport.use('compile', hbs(options));
 module.exports = {
 	verifyEmail(user) {
 		const mailOptions = {
-			to: user.contact.email,
+			to: user.email,
 			subject: 'Verify your account',
 			template: 'verify',
 			context: {
@@ -34,23 +34,14 @@ module.exports = {
 		}
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {
-			if(error){
-				console.log('[ERROR] Message NOT sent: ', error);
-				success = false;
-			  }
-			  else {
-				console.log('[INFO] Message Sent: ' + response.message);
-			  }
-			  
-
 			return error, response
 		});
 	},
 	expressInterest(host, renter, listing){
 		const mailOptions = {
-				replyTo: renter.contact.email,
-				to: host.contact.email,
-				subject: 'bruh show me ur shit!',
+				replyTo: renter.email,
+				to: host.email,
+				subject: 'Lets talk storage!',
 				template: 'interest',
 				context: {
 						l: listing,

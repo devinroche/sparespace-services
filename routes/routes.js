@@ -1,4 +1,5 @@
 const helpers = require('../controllers/userHelper');
+const mapsHelper = require('../controllers/mapsHelper');
 const listHelper = require('../controllers/listingHelper');
 
 module.exports = function (app) {
@@ -18,8 +19,8 @@ module.exports = function (app) {
 		.get(helpers.verifyUser);
 
 	app.route('/cordinates')
-		.get(helpers.getAllCords)
-		.post(helpers.cords_to_address);
+		.get(mapsHelper.getAllCords)
+		.post(mapsHelper.cords_to_address);
 
 	app.route('/listings')
 		.get(listHelper.allListings)
@@ -30,9 +31,7 @@ module.exports = function (app) {
 
 	app.route('/p2p')
 		.post(listHelper.sendInterest);
-
-	app.route('/resend')
-		.post(helpers.resendVerification)
+        
 	//These are for testing.
 	app.route('/deleteListings')
 		.delete(listHelper.clearAll);
