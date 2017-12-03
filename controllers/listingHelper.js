@@ -8,15 +8,14 @@ module.exports = {
 	newListing(req, res) {
         req.body._host = mongoose.Types.ObjectId(req.body._host);
         const newListing = new Listing(req.body);
-        newListing
-            .populate('_host', '_id first')
-            .save((err, listing) => {
-                if (err) 
-                    return res.json(err);
+        newListing.save((err, listing) => {
+            if (err) 
+                return res.json(err);
 
-                res.send(listing);
+            res.send(listing);
 		});
-	},
+    },
+    
 	allListings(req, res) {
         Listing.find({})
             .populate('_host', '_id first')
@@ -26,15 +25,19 @@ module.exports = {
 
                 res.send(listing);
 		});
-	},
+    },
+    
 	listingDetails(req, res) {
-		Listing.findById(req.params.id , (err, listing) => {
-			if (err)
-				return res.json(err);
-		
-			res.send(listing);
-		});
-	},
+        Listing.findById(req.params.id)
+                .populate('_host', '_id first')
+                .exec((err, listing) => {
+                    if (err) 
+                        return res.json(err);
+
+                    res.send(listing);
+            });
+    },
+    
 	sendInterest(req, res){
 		User.find({'_id': { $in: [mongoose.Types.ObjectId(req.body.renter), mongoose.Types.ObjectId(req.body.host)]}}, function(err, user){
 			Listing.findByIdAndUpdate(req.body.listing, {$push: { interested: req.body.renter} }, 
@@ -42,11 +45,8 @@ module.exports = {
 				(err, listing) => {
 					if (err)
 						return res.json(err);
-
+                    
 					mailHelper.expressInterest(user[0], user[1], listing);
-                    // res.send("sent");
-                    next();
-
 			})
 		});
 
@@ -59,7 +59,6 @@ module.exports = {
 				res.send("added to interest")
 		})
 	},
-
 
 	// Use for testing only: clear all listings from db
 	clearAll(req, res){

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Listing = mongoose.model('Listing')
-const googleMapsClient = require('@google/maps');
 
 module.exports = {
   getAllCords(req, res) {
@@ -10,16 +9,17 @@ module.exports = {
 
 			res.send(listing);
 		});
-	},
+    },
+    
 	cords_to_address(req, res) {
-		googleMapsClient.createClient({
+        let googleMapsClient = require('@google/maps').createClient({
 			key: process.env.GMAPS
 		});
 
 		googleMapsClient.geocode({address: req.body.address}, function (err, response) {
             if (err)
                 return res.send(err)
-                
+            
             res.send(response.json.results[0].geometry.location);
 		});
 	}

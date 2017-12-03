@@ -16,13 +16,13 @@ module.exports = {
 	},
 	
 	createUser(req, res) {
-		const newUser = new User(req.body);
-		
+        const newUser = new User(req.body);
+        
 		newUser.save((err, user) => {
 			if (err) 
 				return res.json(err);
 
-			mailHelper.verifyEmail(newUser);
+            mailHelper.verifyEmail(newUser);
 			res.send(user);
 		});
 
@@ -35,8 +35,8 @@ module.exports = {
       
 			res.send(user);
 		});
-	},
-
+    },
+    
 	updateUser(req, res) {
 		User.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, (err, user) => {
 			if (err) 
@@ -45,7 +45,8 @@ module.exports = {
 
 			res.json({ message: 'user updated', user });
 		});
-	},
+    },
+    
 	deleteUser(req, res) {
 		User.remove({ _id: req.params.id }, (err, user) => {
 			if (err) 
@@ -54,8 +55,10 @@ module.exports = {
 
 			res.json({user});
 		});
-	},
+    },
+    
 	loginUser(req, res) {
+        console.log(req.body)
 		User.findOne({'email': req.body.email}, (err, user) => {
 			if (err) 
 				return res.json(err);
@@ -72,7 +75,8 @@ module.exports = {
 				res.sendStatus(404);
 
 		});
-	},
+    },
+    
 	verifyUser(req, res) {
 		User.findOneAndUpdate(req.params._id, { isVerified: true }, {new: true}, (err, user) => {
 			if (err) 
@@ -82,7 +86,6 @@ module.exports = {
 			res.json({message: 'account verified', user});
 		});
 	},
-
 
 	//use for testing only: remove all users from db
 	clearAll(req, res){
