@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Listing = mongoose.model('Listing')
+require('dotenv').config()
 
 module.exports = {
   getAllCords(req, res) {

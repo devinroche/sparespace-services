@@ -58,7 +58,6 @@ module.exports = {
     },
     
 	loginUser(req, res) {
-        console.log(req.body)
 		User.findOne({'email': req.body.email}, (err, user) => {
 			if (err) 
 				return res.json(err);
@@ -83,7 +82,8 @@ module.exports = {
 				return res.json(err);
         
 
-			res.json({message: 'account verified', user});
+            res.redirect('http://localhost:3000/login')
+			// res.json({message: 'account verified', user});
 		});
 	},
 
