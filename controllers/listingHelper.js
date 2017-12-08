@@ -18,7 +18,6 @@ module.exports = {
     },
     
 	allListings(req, res) {
-		ioHelper.testFunction()
         Listing.find({})
             .populate('_host', '_id first')
             .exec((err, listing) => {

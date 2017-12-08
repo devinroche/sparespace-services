@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const ioHelper = require('./controllers/ioHelper')
 const routes = require('./routes/routes');
 
 
@@ -16,7 +17,7 @@ app.use(cors());
 
 const server = app.listen(port);
 const io = require('socket.io')(server)
-const ioHelper = require('./controllers/ioHelper').testFunction(io)
+ioHelper(io)
 
 routes(app);
 
