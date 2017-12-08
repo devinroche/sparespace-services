@@ -32,6 +32,9 @@ module.exports = function (app) {
 	app.route('/p2p')
 		.post(listHelper.sendInterest);
         
+    app.route('/reverify/')
+        .post(helpers.resendVerification)
+
 	//These are for testing.
 	app.route('/deleteListings')
 		.delete(listHelper.clearAll);

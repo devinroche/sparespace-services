@@ -77,15 +77,29 @@ module.exports = {
     },
     
 	verifyUser(req, res) {
-		User.findOneAndUpdate(req.params._id, { isVerified: true }, {new: true}, (err, user) => {
+        console.log(req.params)
+		User.findOneAndUpdate({_id: req.params.id},  {isVerified: true} , {new: true}, (err, user) => {
 			if (err) 
 				return res.json(err);
-        
+            
+            console.log(user)
 
-            res.redirect('http://localhost:3000/login')
+            res.cookie('v', true, { maxAge: 900000, httpOnly: false});
+            res.redirect('http://localhost:3000/')
 			// res.json({message: 'account verified', user});
 		});
 	},
+
+    resendVerification(req, res){
+        console.log(req.body)
+        User.findById(req.body.id, (err, user) => {
+			if (err) 
+				return res.json(err);
+      
+            mailHelper.verifyEmail(user);
+			res.send(user);
+		});
+    },
 
 	//use for testing only: remove all users from db
 	clearAll(req, res){

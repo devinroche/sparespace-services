@@ -29,7 +29,7 @@ module.exports = {
 			subject: 'Verify your account',
 			template: 'verify',
 			context: {
-					u: user
+					user: user
 			}
 		}
 
@@ -37,7 +37,7 @@ module.exports = {
 			return error, response
 		});
 	},
-	expressInterest(host, renter, listing){
+	expressInterest(renter, host, listing){
 		const mailOptions = {
 				replyTo: renter.email,
 				to: host.email,
