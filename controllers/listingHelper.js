@@ -3,6 +3,7 @@ const listingModel = require('../models/listingModel')
 const mailHelper = require('./mailHelper')
 const User = mongoose.model('User');
 const Listing = mongoose.model('Listing');
+const ioHelper = require('./ioHelper')
 
 module.exports = {
 	newListing(req, res) {
@@ -17,6 +18,7 @@ module.exports = {
     },
     
 	allListings(req, res) {
+		ioHelper.testFunction()
         Listing.find({})
             .populate('_host', '_id first')
             .exec((err, listing) => {

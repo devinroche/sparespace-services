@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const routes = require('./routes/routes');
 
+
 require('dotenv').load();
 
 const port = process.env.PORT || 3001;
@@ -13,8 +14,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+const server = app.listen(port);
+const io = require('socket.io')(server)
+const ioHelper = require('./controllers/ioHelper').testFunction(io)
+
 routes(app);
-app.listen(port);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_CONNECT, { useMongoClient: true });
