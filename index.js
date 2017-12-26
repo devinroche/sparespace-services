@@ -17,6 +17,8 @@ app.use(cors());
 
 const server = app.listen(port);
 const io = require('socket.io')(server)
+const p2p = require('socket.io-p2p-server').Server;
+io.use(p2p);
 ioHelper(io)
 
 routes(app);

@@ -1,6 +1,7 @@
 const helpers = require('../controllers/userHelper');
 const mapsHelper = require('../controllers/mapsHelper');
 const listHelper = require('../controllers/listingHelper');
+const msgHelper = require('../controllers/messageHelper');
 
 module.exports = function (app) {
 	app.route('/users')
@@ -40,5 +41,9 @@ module.exports = function (app) {
 		.delete(listHelper.clearAll);
 
 	app.route('/deleteUsers')
-		.delete(helpers.clearAll);
+        .delete(helpers.clearAll);
+        
+    app.route('/message')
+		.get(msgHelper.allMessages)
+		.post(msgHelper.newMessage);
 };

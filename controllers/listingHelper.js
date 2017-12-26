@@ -7,6 +7,7 @@ const ioHelper = require('./ioHelper')
 
 module.exports = {
 	newListing(req, res) {
+        console.log(req.body)
         req.body._host = mongoose.Types.ObjectId(req.body._host);
         const newListing = new Listing(req.body);
         newListing.save((err, listing) => {
