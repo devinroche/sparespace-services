@@ -29,14 +29,19 @@ module.exports = {
 	},
 
 	getUser(req, res) {
-		User.findById(req.params.id, (err, user) => {
-			if (err) 
-				return res.json(err);
-      
-			res.send(user);
-		});
+        User.findById(req.params.id)
+            .populate('interested')
+            .exec((err, user) => {
+                if (err) 
+				    return res.json(err);
+                
+                console.log(user)
+			    res.send(user);
+            })
     },
     
+
+
 	updateUser(req, res) {
 		User.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, (err, user) => {
 			if (err) 

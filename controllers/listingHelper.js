@@ -7,7 +7,6 @@ const ioHelper = require('./ioHelper')
 
 module.exports = {
 	newListing(req, res) {
-        console.log(req.body)
         req.body._host = mongoose.Types.ObjectId(req.body._host);
         const newListing = new Listing(req.body);
         newListing.save((err, listing) => {
@@ -60,8 +59,13 @@ module.exports = {
 
 				res.send("added to interest")
 		})
-	},
+    },
 
+    getUsersInterest(req, res){
+        Listing.find({ "_id": { "$in": req.params.arr }}, (err, listings) => {
+            console.log(listings)
+        })
+    },
 	// Use for testing only: clear all listings from db
 	clearAll(req, res){
 		Listing.remove({}, (err, listing) => {
