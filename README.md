@@ -49,3 +49,10 @@ npm run lint-fix
 - [chai](http://chaijs.com/)
 - [nodemailer](https://nodemailer.com/about/)
 - [mongoose](http://mongoosejs.com/)
+
+## env
+things we have in our .env file include
+- db url
+- sparespace team email
+- email password
+- google maps api key
