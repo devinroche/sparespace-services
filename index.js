@@ -5,7 +5,6 @@ const cors = require('cors');
 const ioHelper = require('./controllers/ioHelper')
 const routes = require('./routes/routes');
 
-
 require('dotenv').load();
 
 const port = process.env.PORT || 3001;

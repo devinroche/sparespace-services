@@ -44,6 +44,14 @@ module.exports = function (app) {
         .delete(helpers.clearAll);
         
     app.route('/message')
-		.get(msgHelper.allMessages)
-		.post(msgHelper.newMessage);
+        .post(msgHelper.newMessage);
+        
+    app.route('/messages/:id')
+        .get(msgHelper.getConversations);
+
+    app.route('/message/:id1/:id2')
+        .get(msgHelper.allMessages)
+
+    app.route('/allMsg')
+        .get(msgHelper.allMSG)
 };
