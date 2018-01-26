@@ -6,8 +6,7 @@ const _ = require('lodash')
 
 module.exports = {
 	allMessages(req, res) {
-        console.log(req.params)
-		Message.find({'host': req.params.id1 ,'renter': req.params.id2 }, (err, m) => {
+		Message.find({'host': req.params.host ,'renter': req.params.renter }, 'createdAt author text',(err, m) => {
 			if (err) 
 				return res.json(err);
             

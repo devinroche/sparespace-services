@@ -49,7 +49,7 @@ module.exports = function (app) {
     app.route('/messages/:id')
         .get(msgHelper.getConversations);
 
-    app.route('/message/:id1/:id2')
+    app.route('/message/:host/:renter')
         .get(msgHelper.allMessages)
 
     app.route('/allMsg')
