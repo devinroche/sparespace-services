@@ -1,27 +1,56 @@
 const nodemailer = require('nodemailer');
+const hbs = require('nodemailer-express-handlebars');
+require('dotenv').config()
+
+let smtpTransport = nodemailer.createTransport({
+	service: 'gmail',
+	host: 'smtp.gmail.com',
+	auth: {
+		user: process.env.EMAIL,
+		pass: process.env.PASS,
+	},
+});
+
+const options = {
+	viewEngine: {
+		extname: '.hbs',
+		layoutsDir: 'views/',
+	},
+	viewPath: 'views/',
+	extName: '.hbs'
+};
+
+smtpTransport.use('compile', hbs(options));
 
 module.exports = {
-	sendEmailVerify(email) {
-		const smtpTransport = nodemailer.createTransport({
-			service: 'gmail',
-			host: 'smtp.gmail.com',
-			auth: {
-				user: process.env.EMAIL,
-				pass: process.env.PASS,
-			},
-		});
-
+	verifyEmail(user) {
 		const mailOptions = {
-			to: email,
-			subject: 'Sparespace Verification',
-			text: 'fart',
-			html: `<p>Click <a href='http://localhost:3001/verify/${email}'>Here</a> to verify your account</p>`,
-		};
+			to: user.email,
+			subject: 'Verify your account',
+			template: 'verify',
+			context: {
+					user: user
+			}
+		}
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {
-			smtpTransport.close();
-
 			return error, response
 		});
 	},
+	expressInterest(renter, host, listing){
+		const mailOptions = {
+				replyTo: renter.email,
+				to: host.email,
+				subject: 'Lets talk storage!',
+				template: 'interest',
+				context: {
+						l: listing,
+						h: host
+				}
+		}
+
+		smtpTransport.sendMail(mailOptions, (error, response) => {
+			return error, response
+		});
+	}
 };

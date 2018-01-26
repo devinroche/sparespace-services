@@ -44,7 +44,7 @@ describe('Listings', () => {
             const listing = {
 				_host: user.id,
                 title: 'fart',
-                duration: '10 weeks',
+                price: '$10',
                 description: 'super cool space'
 			};
 			chai
@@ -56,7 +56,7 @@ describe('Listings', () => {
 					res.body.should.be.a('object');
 					res.body.should.have.property('_host');
 					res.body.should.have.property('title');
-					res.body.should.have.property('duration');
+					res.body.should.have.property('price');
 					res.body.should.have.property('description');
 					res.body.should.have.property('images');
 				done();
@@ -78,7 +78,7 @@ describe('Listings', () => {
             const listing = new Listing({
 				_host: user.id,
                 title: 'fart',
-                duration: '10 weeks',
+                price: '$100',
                 description: 'super cool space'
             });
             user.save((err, user) =>{
@@ -91,7 +91,7 @@ describe('Listings', () => {
                             res.should.have.status(200);
                             res.body.should.be.a('object');
                             res.body.should.have.property('title');
-                            res.body.should.have.property('duration');
+                            res.body.should.have.property('price');
 							res.body.should.have.property('description');
 							res.body.should.have.property('images');
                         done();

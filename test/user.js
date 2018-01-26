@@ -37,9 +37,7 @@ describe('Users', () => {
 				fullname: 'Devin Roche',
 				contact: {
 					email: 'foo@email.com',
-					phone: '123-456-7890',
-				},
-				userType: 'host',
+				}
 			};
 
 			chai
@@ -61,10 +59,8 @@ describe('Users', () => {
 				fullname: 'Devin Roche',
 				password: 'fart',
 				contact: {
-					email: 'foo@email.com',
-					phone: '123-456-7890',
-				},
-				userType: 'host'
+					email: 'foo@email.com'
+				}
 			};
 
 			chai
@@ -77,7 +73,6 @@ describe('Users', () => {
 					res.body.should.have.property('fullname');
 					res.body.should.have.property('password');
 					res.body.should.have.property('contact');
-					res.body.should.have.property('userType');
 				done();
 				});
 		});
@@ -89,10 +84,8 @@ describe('Users', () => {
 				fullname: 'Devin Roche',
 				password: 'fart',
 				contact: {
-					email: 'foo@email.com',
-					phone: '123-456-7890',
-				},
-				userType: 'host',
+					email: 'foo@email.com'
+				}
 			});
 
 			user.save((err, user) => {
@@ -107,8 +100,6 @@ describe('Users', () => {
 						res.body.should.have.property('password');
 						res.body.should.have.property('contact');
 						res.body.contact.should.have.property('email');
-						res.body.contact.should.have.property('phone');
-						res.body.should.have.property('userType');
 						res.body.should.have.property('_id').eql(user.id);
 					done();
 					});
@@ -122,10 +113,8 @@ describe('Users', () => {
 				fullname: 'Devin Roche',
 				password: 'fart',
 				contact: {
-					email: 'foo@email.com',
-					phone: '123-456-7890',
-				},
-				userType: 'host',
+					email: 'foo@email.com'
+				}
 			});
 			user.save((err, book) => {
 				chai
@@ -136,9 +125,7 @@ describe('Users', () => {
 						password: 'poop',
 						contact: {
 							email: 'foo@email.com',
-							phone: '123-456-7890',
-						},
-						userType: 'host',
+						}
 					})
 					.end((err, res) => {
 						res.should.have.status(200);
@@ -158,9 +145,7 @@ describe('Users', () => {
 				password: 'fart',
 				contact: {
 					email: 'foo@email.com',
-					phone: '123-456-7890',
-				},
-				userType: 'host',
+				}
 			});
 			user.save((err, user) => {
 				chai
@@ -183,10 +168,8 @@ describe('Users', () => {
 				fullname: 'Devin Roche',
 				password: 'fart',
 				contact: {
-					email: 'fart@email.com',
-					phone: '123-456-7890',
-				},
-				userType: 'host',
+					email: 'fart@email.com'
+				}
 			});
 			user.save((err, user) => {
 				chai
@@ -198,7 +181,8 @@ describe('Users', () => {
 					})
 					.end((err, res) => {
 						res.should.have.status(200);
-						res.body.should.be.true;
+						res.body.should.have.property('isMatch')
+						res.body.should.have.property('id')
 					done();
 					});
 			});
@@ -211,10 +195,8 @@ describe('Users', () => {
 				fullname: 'Devin Roche',
 				password: 'fart',
 				contact: {
-					email: 'fart@email.com',
-					phone: '123-456-7890',
-				},
-				userType: 'host',
+					email: 'fart@email.com'
+				}
 			});
 			user.save((err, user) => {
 				chai
@@ -225,9 +207,7 @@ describe('Users', () => {
 						res.body.should.be.a('object');
 						res.body.should.have.property('message').eql('account verified')
 						res.body.user.should.have.property('fullname').eql('Devin Roche')
-						res.body.user.should.have.property('userType').eql('host')
 						res.body.user.contact.should.have.property('email').eql('fart@email.com')
-						res.body.user.contact.should.have.property('phone').eql('123-456-7890')
 					done();
 					});
 			});

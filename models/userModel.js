@@ -5,23 +5,16 @@ const SALT_WORK_FACTOR = 10;
 
 const Schema = mongoose.Schema;
 
-const user = new Schema(
-	{
-		fullname: { type: String, required: true },
-		password: { type: String, required: true },
-		contact: {
-			email: { type: String, required: true, unique: true },
-			phone: { type: String, required: true },
-			address: String,
-		},
-		userType: { type: String, required: true, default: 'renter' },
-		isRenting: { type: Boolean, default: false },
-		isHosting: { type: Boolean, default: false },
-		isVerified: { type: Boolean, default: false },
-	},{ collection: 'sparespaceusers' }
-);
+const user = new Schema({
+    first: { type: String, required: true },
+    last: { type: String, required: true },
+    password: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    interested: [{type: Schema.Types.ObjectId, ref: 'Listing', required: true}],
+    isVerified: { type: Boolean, default: false }
+},{ collection: 'sparespaceusers' });
 
-//before save run this
+//before save encrypt password
 user.pre('save', function(next) {
 	const user = this;
 
