@@ -47,8 +47,7 @@ module.exports = {
             }
 
             let foo = _.uniqBy(result, id);
-            console.log(foo)
-            res.send(result)
+            res.send(foo)
         });
 
 
