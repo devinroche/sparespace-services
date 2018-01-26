@@ -29,14 +29,18 @@ module.exports = {
 	},
 
 	getUser(req, res) {
-		User.findById(req.params.id, (err, user) => {
-			if (err) 
-				return res.json(err);
-      
-			res.send(user);
-		});
+        User.findById(req.params.id)
+            .populate('interested')
+            .exec((err, user) => {
+                if (err) 
+				    return res.json(err);
+
+			    res.send(user);
+            })
     },
     
+
+
 	updateUser(req, res) {
 		User.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, (err, user) => {
 			if (err) 
@@ -77,21 +81,16 @@ module.exports = {
     },
     
 	verifyUser(req, res) {
-        console.log(req.params)
 		User.findOneAndUpdate({_id: req.params.id},  {isVerified: true} , {new: true}, (err, user) => {
 			if (err) 
 				return res.json(err);
-            
-            console.log(user)
 
             res.cookie('v', true, { maxAge: 900000, httpOnly: false});
             res.redirect('http://localhost:3000/')
-			// res.json({message: 'account verified', user});
 		});
 	},
 
     resendVerification(req, res){
-        console.log(req.body)
         User.findById(req.body.id, (err, user) => {
 			if (err) 
 				return res.json(err);

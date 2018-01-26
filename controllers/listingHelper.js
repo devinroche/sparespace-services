@@ -59,7 +59,7 @@ module.exports = {
 
 				res.send("added to interest")
 		})
-	},
+    },
 
 	// Use for testing only: clear all listings from db
 	clearAll(req, res){
