@@ -38,37 +38,14 @@ module.exports = {
     getConversations(req, res) {
         var id  = req.params.id;
         Message.aggregate([
-            { "$group": {
-                "_id": {"host": "$host", "renter": "$renter"}
-            }},
+            {$match: {$or: [{"host": mongoose.Types.ObjectId(id)},{"renter": mongoose.Types.ObjectId(id)}]}},
+            { "$group": {"_id": {"host": "$host", "renter": "$renter"}}}
         ], function (err, result) {
             if (err) {
                 return res.json(err);
             }
 
-            let foo = _.uniqBy(result, id);
-            res.send(foo)
+            res.send(result)
         });
-
-
-        
-        //     .find({
-        //         $or: [
-        //             { 'host': req.params.id },
-        //             { 'renter': req.params.id }
-        //         ]}, { host: 1, renter: 1 })
-        //     .aggregate([{
-        //         $group : {
-        //             _id: {host: '$host', renter: '$renter'}
-        //          }
-        //     }])
-        //     .populate('host', 'first last')
-        //     .populate('renter', 'first last')
-        //     .exec((err, m) => {
-        //     if (err) 
-        //         return res.json(err);
-            
-        //     res.send(m);
-        // });
     }
 };
