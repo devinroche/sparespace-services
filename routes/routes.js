@@ -32,9 +32,6 @@ module.exports = function (app) {
 
 	app.route('/p2p')
 		.post(listHelper.sendInterest);
-        
-    app.route('/getinterested/')
-        .post(listHelper.getUsersInterest)
 
 	//These are for testing.
 	app.route('/deleteListings')
