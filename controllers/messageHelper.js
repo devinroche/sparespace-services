@@ -44,8 +44,10 @@ module.exports = {
             if (err) {
                 return res.json(err);
             }
-
-            res.send(result)
+            result.populate(result, {path: "_id.renter", select: 'first'}, function(err, r) {
+                console.log(r)
+                res.send(r)
+            });
         });
     }
 };
