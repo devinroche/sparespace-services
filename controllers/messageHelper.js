@@ -50,6 +50,8 @@ module.exports = {
             let results = []
             result.forEach(elem => {
                 let tmp = {}
+                tmp['host_id'] = elem.user1[0]._id
+                tmp['renter_id'] = elem.user2[0]._id
                 tmp['host'] = elem.user1[0].first + ' ' + elem.user1[0].last
                 tmp['renter'] = elem.user2[0].first + ' ' + elem.user2[0].last
                 results.push(tmp)
