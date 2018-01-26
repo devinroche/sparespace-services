@@ -39,15 +39,23 @@ module.exports = {
         var id  = req.params.id;
         Message.aggregate([
             {$match: {$or: [{"host": mongoose.Types.ObjectId(id)},{"renter": mongoose.Types.ObjectId(id)}]}},
-            { "$group": {"_id": {"host": "$host", "renter": "$renter"}}}
+            { $group: {"_id": {"host": "$host", "renter": "$renter"}}},
+            { $lookup: { from: 'sparespaceusers', localField: '_id.host', foreignField: '_id', as: 'user1' } },
+            { $lookup: { from: 'sparespaceusers', localField: '_id.renter', foreignField: '_id', as: 'user2' } },
         ], function (err, result) {
             if (err) {
                 return res.json(err);
             }
-            result.populate(result, {path: "_id.renter", select: 'first'}, function(err, r) {
-                console.log(r)
-                res.send(r)
-            });
+          
+            let results = []
+            result.forEach(elem => {
+                let tmp = {}
+                tmp['host'] = elem.user1[0].first + ' ' + elem.user1[0].last
+                tmp['renter'] = elem.user2[0].first + ' ' + elem.user2[0].last
+                results.push(tmp)
+            })
+
+            res.send(results)
         });
     }
 };
