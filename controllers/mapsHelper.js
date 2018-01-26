@@ -20,8 +20,12 @@ module.exports = {
 		googleMapsClient.geocode({address: req.body.address}, function (err, response) {
             if (err)
                 return res.send(err)
+            if (response.json.status === "ZERO_RESULTS") {
+            	res.send("bad")
+            } else {
+            	res.send(response.json.results[0].geometry.location);
+            }
             
-            res.send(response.json.results[0].geometry.location);
 		});
 	}
 };
