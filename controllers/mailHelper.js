@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const hbs = require('nodemailer-express-handlebars');
 require('dotenv').config()
 
-let smtpTransport = nodemailer.createTransport({
+const smtpTransport = nodemailer.createTransport({
 	service: 'gmail',
 	host: 'smtp.gmail.com',
 	auth: {
@@ -29,7 +29,7 @@ module.exports = {
 			subject: 'Verify your account',
 			template: 'verify',
 			context: {
-					user: user
+				user: user
 			}
 		}
 
@@ -39,14 +39,14 @@ module.exports = {
 	},
 	expressInterest(renter, host, listing){
 		const mailOptions = {
-				replyTo: renter.email,
-				to: host.email,
-				subject: 'Lets talk storage!',
-				template: 'interest',
-				context: {
-						l: listing,
-						h: host
-				}
+			replyTo: renter.email,
+			to: host.email,
+			subject: 'Lets talk storage!',
+			template: 'interest',
+			context: {
+				l: listing,
+				h: host
+			}
 		}
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {

@@ -1,27 +1,27 @@
-const helpers = require('../controllers/userHelper');
+const userHelper = require('../controllers/userHelper');
 const mapsHelper = require('../controllers/mapsHelper');
 const listHelper = require('../controllers/listingHelper');
 const msgHelper = require('../controllers/messageHelper');
 
 module.exports = function (app) {
 	app.route('/users')
-		.get(helpers.allUsers)
-		.post(helpers.createUser);
+		.get(userHelper.allUsers)
+		.post(userHelper.createUser);
 
 	app.route('/user/:id')
-		.get(helpers.getUser)
-		.put(helpers.updateUser)
-		.delete(helpers.deleteUser);
+		.get(userHelper.getUser)
+		.put(userHelper.updateUser)
+		.delete(userHelper.deleteUser);
 
 	app.route('/login')
-		.post(helpers.loginUser);
+		.post(userHelper.loginUser);
 
 	app.route('/verify/:id')
-		.get(helpers.verifyUser);
+		.get(userHelper.verifyUser);
 
 	app.route('/cordinates')
 		.get(mapsHelper.getAllCords)
-		.post(mapsHelper.cords_to_address);
+		.post(mapsHelper.cordsToAddress);
 
 	app.route('/listings')
 		.get(listHelper.allListings)
@@ -38,17 +38,17 @@ module.exports = function (app) {
 		.delete(listHelper.clearAll);
 
 	app.route('/deleteUsers')
-        .delete(helpers.clearAll);
+		.delete(userHelper.clearAll);
         
-    app.route('/message')
-        .post(msgHelper.newMessage);
+	app.route('/message')
+		.post(msgHelper.newMessage);
         
-    app.route('/messages/:id')
-        .get(msgHelper.getConversations);
+	app.route('/messages/:id')
+		.get(msgHelper.getConversations);
 
-    app.route('/message/:host/:renter')
-        .get(msgHelper.allMessages)
+	app.route('/message/:host/:renter')
+		.get(msgHelper.allMessages)
 
-    app.route('/allMsg')
-        .get(msgHelper.allMSG)
+	app.route('/allMsg')
+		.get(msgHelper.allMSG)
 };
