@@ -5,12 +5,13 @@ module.exports = function(io) {
         });
 
         client.on('new space', (space) => {
+            console.log(space)
             io.emit('refresh listings', { for: 'everyone' }, space);            
         });
 
         client.on('peer-msg', function(data) {
             console.log('Message from peer: %s', data);
-            client.broadcast.emit('peer-msg', data);
+            client.broadcast.emit('update msg');
         })
     })
 }
