@@ -61,11 +61,6 @@ module.exports = {
 		})
     },
 
-    getUsersInterest(req, res){
-        Listing.find({ "_id": { "$in": req.params.arr }}, (err, listings) => {
-            console.log(listings)
-        })
-    },
 	// Use for testing only: clear all listings from db
 	clearAll(req, res){
 		Listing.remove({}, (err, listing) => {

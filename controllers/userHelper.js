@@ -34,8 +34,7 @@ module.exports = {
             .exec((err, user) => {
                 if (err) 
 				    return res.json(err);
-                
-                console.log(user)
+
 			    res.send(user);
             })
     },
@@ -82,12 +81,9 @@ module.exports = {
     },
     
 	verifyUser(req, res) {
-        console.log(req.params)
 		User.findOneAndUpdate({_id: req.params.id},  {isVerified: true} , {new: true}, (err, user) => {
 			if (err) 
 				return res.json(err);
-            
-            console.log(user)
 
             res.cookie('v', true, { maxAge: 900000, httpOnly: false});
             res.redirect('http://localhost:3000/')
@@ -96,7 +92,6 @@ module.exports = {
 	},
 
     resendVerification(req, res){
-        console.log(req.body)
         User.findById(req.body.id, (err, user) => {
 			if (err) 
 				return res.json(err);
