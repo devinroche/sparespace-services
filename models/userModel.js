@@ -10,7 +10,7 @@ const user = new Schema({
 	last: { type: String, required: true },
 	password: { type: String, required: true },
 	email: { type: String, required: true, unique: true },
-	interested: [{type: Schema.Types.ObjectId, ref: 'Listing', required: true}],
+    listings: [{type: Schema.Types.ObjectId, ref: 'Listing'}],
 	isVerified: { type: Boolean, default: false }
 },{ collection: 'sparespaceusers' });
 

@@ -37,28 +37,6 @@ module.exports = {
 				res.send(listing);
 			});
 	},
-    
-	sendInterest(req, res){
-		User.find({'_id': { $in: [mongoose.Types.ObjectId(req.body.renter), mongoose.Types.ObjectId(req.body.host)]}}, (err, user) => {
-			Listing.findByIdAndUpdate(req.body.listing, {$push: { interested: req.body.renter} }, 
-				{safe: true, upsert: true},
-				(err, listing) => {
-					if (err)
-						return res.json(err);
-                    
-					mailHelper.expressInterest(user[0], user[1], listing);
-				})
-		});
-
-		User.findByIdAndUpdate(req.body.renter, {$push: {interested: req.body.listing}}, 
-			{safe: true, upsert: true},
-			(err) => {
-				if(err)
-					return res.json(err)
-
-				res.send('added to interest')
-			})
-	},
 
 	// Use for testing only: clear all listings from db
 	clearAll(req, res){
