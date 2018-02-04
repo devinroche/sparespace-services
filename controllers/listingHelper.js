@@ -98,7 +98,10 @@ module.exports = {
 		});
 	},
 	range_point(req,res) {
-		Listing.find().and([{price:{$gt:req.body.cost_low}},{price:{$lt:req.body.cost_high}}]).and({duration:{$gt:req.body.dur_low}},{price:{$lt:req.body.dur_high}}).exec(function(err, docs) {
+		Listing.find({$or:[{$and:[{price:{$gt:req.body.cost_low}},{price:{$lt:req.body.cost_high}}]},{$and:[{duration:{$gt:req.body.dur_low}},{price:{$lt:req.body.dur_high}}]}]}).exec(function(err,docs) {
+
+		
+		//Listing.find().or(and([{price:{$gt:req.body.cost_low}},{price:{$lt:req.body.cost_high}}]).and({duration:{$gt:req.body.dur_low}},{price:{$lt:req.body.dur_high}}).exec(function(err, docs) {
 			if (err)
 				res.json(err)
 			res.send(docs)
