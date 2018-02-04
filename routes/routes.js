@@ -61,8 +61,7 @@ module.exports = function (app) {
 		.get(listHelper.cost_high)
 	app.route('/cost_low')
 		.get(listHelper.cost_low)
-	app.route('/price_point')
-		.post(listHelper.price_point)
-	app.route('/duration_point')
-		.post(listHelper.duration_point)
+	app.route('/range')
+		.post(listHelper.range_point)
+	
 };

@@ -97,19 +97,13 @@ module.exports = {
 			res.send(docs)
 		});
 	},
-	price_point(req,res) {
-		Listing.find({}).where('price').gt(req.body.low).lt(req.body.high).exec(function(err, docs) {
+	range_point(req,res) {
+		Listing.find().and([{price:{$gt:req.body.cost_low}},{price:{$lt:req.body.cost_high}}]).and({duration:{$gt:req.body.dur_low}},{price:{$lt:req.body.dur_high}}).exec(function(err, docs) {
 			if (err)
 				res.json(err)
 			res.send(docs)
 		});
 	},
-	duration_point(req,res) {
-		Listing.find({}).where('duration').gt(req.body.low).lt(req.body.high).exec(function(err, docs) {
-			if (err)
-				res.json(err)
-			res.send(docs)
-		});
-	}
+	
 
 };
