@@ -69,4 +69,47 @@ module.exports = {
 			res.send(listing)
 		})
 	},
+	most_recent(req,res) {
+		Listing.find({}).sort('-timestamp').exec(function(err, docs) {
+			if (err)
+				res.json(err)
+			res.send(docs)
+		});
+	},
+	least_recent(req,res) {
+		Listing.find({}).sort('timestamp').exec(function(err, docs) {
+			if (err)
+				res.json(err)
+			res.send(docs)
+		});
+	},
+	cost_low(req,res) {
+		Listing.find({}).sort('price').exec(function(err, docs) {
+			if (err)
+				res.json(err)
+			res.send(docs)
+		});
+	},
+	cost_high(req,res) {
+		Listing.find({}).sort('-price').exec(function(err, docs) {
+			if (err)
+				res.json(err)
+			res.send(docs)
+		});
+	},
+	price_point(req,res) {
+		Listing.find({}).where('price').gt(req.body.low).lt(req.body.high).exec(function(err, docs) {
+			if (err)
+				res.json(err)
+			res.send(docs)
+		});
+	},
+	duration_point(req,res) {
+		Listing.find({}).where('duration').gt(req.body.low).lt(req.body.high).exec(function(err, docs) {
+			if (err)
+				res.json(err)
+			res.send(docs)
+		});
+	}
+
 };

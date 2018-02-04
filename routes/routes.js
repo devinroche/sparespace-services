@@ -51,4 +51,18 @@ module.exports = function (app) {
 
 	app.route('/allMsg')
 		.get(msgHelper.allMSG)
+
+	//filter requests
+	app.route('/most_recent')
+		.get(listHelper.most_recent)
+	app.route('/least_recent')
+		.get(listHelper.least_recent)
+	app.route('/cost_high')
+		.get(listHelper.cost_high)
+	app.route('/cost_low')
+		.get(listHelper.cost_low)
+	app.route('/price_point')
+		.post(listHelper.price_point)
+	app.route('/duration_point')
+		.post(listHelper.duration_point)
 };
