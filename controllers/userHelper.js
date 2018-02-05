@@ -3,6 +3,7 @@ const mailHelper = require('./mailHelper');
 const userModel = require('../models/userModel')
 const listingModel = require('../models/listingModel')
 const User = mongoose.model('User');
+const Listings = mongoose.model('Listing')
 
 module.exports = {
 	allUsers(req, res) {
@@ -28,13 +29,14 @@ module.exports = {
 	},
 
 	getUser(req, res) {
-		User.findById(req.params.id)
-			.populate('interested')
-			.exec((err, user) => {
+		User.findById(req.params.id, (err, user) => {
 				if (err) 
 				    return res.json(err);
 
-			    res.send(user);
+                Listings.find({_host: user._id}, (err, listings) => {
+                    user.listings = listings
+                    res.send(user);
+                })
 			})
 	},
     
