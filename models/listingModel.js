@@ -13,6 +13,7 @@ const listing = new Schema({
 	interested: [String],
 	lat: {type: String},
 	lng: {type: String},
+	features:{type: [String]},
 	timestamp: {type:Number,required:true}
 },{ collection: 'sparespacelisting' });
 
