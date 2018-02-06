@@ -78,7 +78,8 @@ module.exports = {
 	range_point(req,res) {
 		Listing.find({$or:[{price:{$lt:req.body.cost}},{duration:{$lt:req.body.duration}}]}).exec(function(err,docs) {
 			if (err)
-				res.json(err)
+				return res.json(err)
+
 			res.send(docs)
 		});
 		
