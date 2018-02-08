@@ -25,10 +25,12 @@ module.exports = function (app) {
 
 	app.route('/listings')
 		.get(listHelper.allListings)
-		.post(listHelper.newListing);
+        .post(listHelper.newListing);
 
-	app.route('/listing/:id')
-		.get(listHelper.listingDetails);
+    app.route('/listing/:id')
+        .get(listHelper.listingDetails)
+        .put(listHelper.updateListing)
+        .delete(listHelper.deleteListing);
 
 	//These are for testing.
 	app.route('/deleteListings')
