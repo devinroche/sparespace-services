@@ -39,8 +39,6 @@ module.exports = {
                 })
 			})
 	},
-    
-
 
 	updateUser(req, res) {
 		User.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, (err, user) => {

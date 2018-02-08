@@ -7,14 +7,13 @@ const listing = new Schema({
 	title: { type: String, required: true },
 	price: { type: Number	, required: true },
 	description: {type: String, required: true },
-	duration: {type: Number, required:true},
+	dates: [Date],
 	location: {type: String, required: true},
 	images: [{type: String, required: true}],
 	interested: [String],
 	lat: {type: String},
 	lng: {type: String},
 	features: {type: [String]},
-	timestamp: {type:Number,required:true}
 },{ collection: 'sparespacelisting' });
 
 module.exports = mongoose.model('Listing', listing);
