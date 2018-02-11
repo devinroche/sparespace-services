@@ -18,7 +18,6 @@ module.exports = {
                 return res.json(err);
             }
             
-            console.log(listing)
 			res.send(listing);
 		});
 	},
