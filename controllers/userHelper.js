@@ -65,14 +65,17 @@ module.exports = {
 			if (err) 
 				return res.json(err);
 
-			if(user)
+			if(user){
 				user.comparePassword(req.body.password, (err, isMatch) => {
 					if (err) 
 						return res.json(err);
 
-					res.send({isMatch, id: user._id, v: user.isVerified})
+					if (!isMatch)
+						return res.sendStatus(401)
+
+					return res.send({isMatch, id: user._id, v: user.isVerified})
 				});
-			
+			}
 			else
 				res.sendStatus(404);
 
