@@ -7,12 +7,13 @@ const listing = new Schema({
 	title: { type: String, required: true },
 	price: { type: Number	, required: true },
 	description: {type: String, required: true },
-	dates: [Date],
+    dates: [Date],
 	location: {type: String, required: true},
 	images: [{type: String, required: true}],
 	interested: [String],
 	lat: {type: String},
 	lng: {type: String},
+	size: {type: String},
 	features: {type: [String]},
 },{ collection: 'sparespacelisting' });
 
