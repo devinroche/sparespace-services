@@ -52,5 +52,21 @@ module.exports = {
 		smtpTransport.sendMail(mailOptions, (error, response) => {
 			return error, response
 		});
+	},
+	newMessage(reciever) {
+		console.log(reciever)
+		const mailOptions = {
+			to: reciever.email,
+			subject: 'You recieved a new message!',
+			template: 'message',
+			context: {
+				user: reciever,
+			}
+		}
+
+		smtpTransport.sendMail(mailOptions, (error, response) => {
+			console.log(error, response)
+			return error, response
+		});
 	}
 };

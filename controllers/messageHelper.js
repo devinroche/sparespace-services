@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const userModel = require('../models/messageModel')
 const Message = mongoose.model('Message');
+const User = mongoose.model('User');
+const mailHelper = require('./mailHelper')
 
 module.exports = {
 	allMessages(req, res) {
@@ -24,8 +26,12 @@ module.exports = {
 	},
 	
 	newMessage(req, res) {
-		const newMessage = new Message(req.body);
+		let reciever = req.body.author === req.body.host ? req.body.renter : req.body.host
+		User.findById(reciever, (err, user) => {
+			mailHelper.newMessage(user)
+		})
 
+		const newMessage = new Message(req.body);
 		newMessage.save((err, m) => {
 			if (err) 
 				return res.json(err);
