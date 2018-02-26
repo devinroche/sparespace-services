@@ -54,7 +54,6 @@ module.exports = {
 		});
 	},
 	newMessage(reciever) {
-		console.log(reciever)
 		const mailOptions = {
 			to: reciever.email,
 			subject: 'You recieved a new message!',
@@ -65,7 +64,6 @@ module.exports = {
 		}
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {
-			console.log(error, response)
 			return error, response
 		});
 	}
