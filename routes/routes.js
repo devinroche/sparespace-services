@@ -19,6 +19,9 @@ module.exports = function (app) {
 	app.route('/verify/:id')
 		.get(userHelper.verifyUser);
 
+	app.route('/resendV')
+		.post(userHelper.resendV)
+
 	app.route('/cordinates')
 		.get(mapsHelper.getAllCords)
 		.post(mapsHelper.cordsToAddress);

@@ -59,7 +59,14 @@ module.exports = {
 			res.json({user});
 		});
 	},
-    
+	
+	resendV(req, res) {
+		User.findById(req.body.u_id, (err, user) => {
+			console.log(user)
+			mailHelper.verifyEmail(user);
+		})
+	},
+
 	loginUser(req, res) {
 		User.findOne({'email': req.body.email}, (err, user) => {
 			if (err) 
