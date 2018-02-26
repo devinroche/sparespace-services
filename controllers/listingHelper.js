@@ -23,7 +23,7 @@ module.exports = {
 	},
 
 	allListings(req, res) {
-		Listing.find({})
+		Listing.find({status: 1})
 			.populate('_host', '_id first')
 			.exec((err, listing) => {
 				if (err) 
@@ -41,6 +41,12 @@ module.exports = {
 
 			res.json({ message: 'listing updated', listing });
 		});
+	},
+
+	closeListing(req, res) {
+		Listing.findByIdAndUpdate(req.params.id, { status: 0 }, { new: true }, (err, res) => {
+			console.log(res)
+		})
 	},
 
 	listingDetails(req, res) {

@@ -22,6 +22,9 @@ module.exports = function (app) {
 	app.route('/resendV')
 		.post(userHelper.resendV)
 
+	app.route('/close/:id')
+		.get(listHelper.closeListing)
+
 	app.route('/cordinates')
 		.get(mapsHelper.getAllCords)
 		.post(mapsHelper.cordsToAddress);

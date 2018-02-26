@@ -15,6 +15,7 @@ const listing = new Schema({
 	lng: {type: String},
 	size: {type: String},
 	features: {type: [String]},
+	status: {type: Number, default: 1}
 },{ collection: 'sparespacelisting' });
 
 module.exports = mongoose.model('Listing', listing);
