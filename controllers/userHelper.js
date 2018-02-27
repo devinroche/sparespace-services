@@ -4,6 +4,7 @@ const userModel = require('../models/userModel')
 const listingModel = require('../models/listingModel')
 const User = mongoose.model('User');
 const Listings = mongoose.model('Listing')
+const bcrypt = require('bcrypt');
 
 module.exports = {
 	allUsers(req, res) {
@@ -41,13 +42,41 @@ module.exports = {
 	},
 
 	updateUser(req, res) {
-		User.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, (err, user) => {
-			if (err) 
-				return res.json(err);
-        
+		User.findById(req.params.id, (err, user) => {
+			if('oldpass' in req.body){
+				user.comparePassword(req.body.oldpass, (err, isMatch) => {
+					if (err)
+						return res.json(err);
 
-			res.json({ message: 'user updated', user });
-		});
+					if (!isMatch)
+						return res.sendStatus(401)
+
+					else{						
+						bcrypt.hash(req.body.password, 10, (err, hash) => {
+							if (err)
+								return res.json(err);
+
+							req.body.password = hash;
+							User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, u) => {
+								if (err)
+									return res.json(err);
+
+								console.log(u)
+								return res.json({ message: 'user updated', u });
+							});
+						});
+					}
+				});
+			}
+			else {
+				User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, u) => {
+					if (err)
+						return res.json(err);
+
+					return res.json({ message: 'user updated', u });
+				});
+			}
+		})
 	},
     
 	deleteUser(req, res) {
@@ -62,7 +91,6 @@ module.exports = {
 	
 	resendV(req, res) {
 		User.findById(req.body.u_id, (err, user) => {
-			console.log(user)
 			mailHelper.verifyEmail(user);
 		})
 	},

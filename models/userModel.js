@@ -17,6 +17,7 @@ const user = new Schema({
 //before save encrypt password
 user.pre('save', function(next) {
 	const user = this;
+	console.log(user)
 
 	if (!user.isModified('password')) 
 		return next();
