@@ -37,7 +37,7 @@ module.exports = {
 			return error, response
 		});
 	},
-	expressInterest(renter, host, listing){
+	expressInterest(renter, host, listing) {
 		const mailOptions = {
 			replyTo: renter.email,
 			to: host.email,

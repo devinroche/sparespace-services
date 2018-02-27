@@ -26,7 +26,7 @@ module.exports = {
 	},
 	
 	newMessage(req, res) {
-		let reciever = req.body.author === req.body.host ? req.body.renter : req.body.host
+		const reciever = req.body.author === req.body.host ? req.body.renter : req.body.host
 		User.findById(reciever, (err, user) => {
 			mailHelper.newMessage(user)
 		})

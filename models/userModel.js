@@ -10,14 +10,13 @@ const user = new Schema({
 	last: { type: String, required: true },
 	password: { type: String, required: true },
 	email: { type: String, required: true, unique: true },
-    listings: [{type: Schema.Types.ObjectId, ref: 'Listing'}],
+	listings: [{type: Schema.Types.ObjectId, ref: 'Listing'}],
 	isVerified: { type: Boolean, default: false }
 },{ collection: 'sparespaceusers' });
 
 //before save encrypt password
 user.pre('save', function(next) {
 	const user = this;
-	console.log(user)
 
 	if (!user.isModified('password')) 
 		return next();

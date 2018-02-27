@@ -31,19 +31,19 @@ module.exports = {
 
 	getUser(req, res) {
 		User.findById(req.params.id, (err, user) => {
-				if (err) 
+			if (err) 
 				    return res.json(err);
 
-                Listings.find({_host: user._id}, (err, listings) => {
-                    user.listings = listings
-                    res.send(user);
-                })
+			Listings.find({_host: user._id}, (err, listings) => {
+				user.listings = listings
+				res.send(user);
 			})
+		})
 	},
 
 	updateUser(req, res) {
 		User.findById(req.params.id, (err, user) => {
-			if('oldpass' in req.body){
+			if('oldpass' in req.body)
 				user.comparePassword(req.body.oldpass, (err, isMatch) => {
 					if (err)
 						return res.json(err);
@@ -51,31 +51,30 @@ module.exports = {
 					if (!isMatch)
 						return res.sendStatus(401)
 
-					else{						
-						bcrypt.hash(req.body.password, 10, (err, hash) => {
+											
+					bcrypt.hash(req.body.password, 10, (err, hash) => {
+						if (err)
+							return res.json(err);
+
+						req.body.password = hash;
+						User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, u) => {
 							if (err)
 								return res.json(err);
 
-							req.body.password = hash;
-							User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, u) => {
-								if (err)
-									return res.json(err);
-
-								console.log(u)
-								return res.json({ message: 'user updated', u });
-							});
+							return res.json({ message: 'user updated', u });
 						});
-					}
+					});
+					
 				});
-			}
-			else {
+			
+			else 
 				User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, u) => {
 					if (err)
 						return res.json(err);
 
 					return res.json({ message: 'user updated', u });
 				});
-			}
+			
 		})
 	},
     
@@ -92,6 +91,7 @@ module.exports = {
 	resendV(req, res) {
 		User.findById(req.body.u_id, (err, user) => {
 			mailHelper.verifyEmail(user);
+			res.json({status: 'sent'})
 		})
 	},
 
@@ -100,7 +100,7 @@ module.exports = {
 			if (err) 
 				return res.json(err);
 
-			if(user){
+			if(user)
 				user.comparePassword(req.body.password, (err, isMatch) => {
 					if (err) 
 						return res.json(err);
@@ -110,7 +110,7 @@ module.exports = {
 
 					return res.send({isMatch, id: user._id, v: user.isVerified})
 				});
-			}
+			
 			else
 				res.sendStatus(404);
 

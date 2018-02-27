@@ -11,19 +11,23 @@ module.exports = {
 			res.send(listing);
 		});
 	},
-    
-	cordsToAddress(req, res) {
-		const googleMapsClient = require('@google/maps').createClient({key: process.env.GMAPS});
 
-		googleMapsClient.geocode({address: req.body.address}, (err, response) => {
+	cordsToAddress(req, res) {
+		const googleMapsClient = require('@google/maps').createClient({
+			key: process.env.GMAPS
+		});
+
+		googleMapsClient.geocode({
+			address: req.body.address
+		}, (err, response) => {
 			if (err)
 				return res.send(err)
-			if (response.json.status === 'ZERO_RESULTS') 
-            	res.send('bad')
-			else 
-            	res.send(response.json.results[0].geometry.location);
-            
-            
+			if (response.json.status === 'ZERO_RESULTS')
+				res.send('bad')
+			else
+				res.send(response.json.results[0].geometry.location);
+
+
 		});
 	}
 };
