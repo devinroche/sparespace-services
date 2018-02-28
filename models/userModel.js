@@ -6,12 +6,12 @@ const SALT_WORK_FACTOR = 10;
 const Schema = mongoose.Schema;
 
 const user = new Schema({
-    first: { type: String, required: true },
-    last: { type: String, required: true },
-    password: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    interested: [{type: Schema.Types.ObjectId, ref: 'Listing', required: true}],
-    isVerified: { type: Boolean, default: false }
+	first: { type: String, required: true },
+	last: { type: String, required: true },
+	password: { type: String, required: true },
+	email: { type: String, required: true, unique: true },
+	listings: [{type: Schema.Types.ObjectId, ref: 'Listing'}],
+	isVerified: { type: Boolean, default: false }
 },{ collection: 'sparespaceusers' });
 
 //before save encrypt password
