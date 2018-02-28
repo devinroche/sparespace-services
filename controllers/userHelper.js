@@ -7,15 +7,6 @@ const Listings = mongoose.model('Listing')
 const bcrypt = require('bcrypt');
 
 module.exports = {
-	allUsers(req, res) {
-		User.find({}, (err, user) => {
-			if (err) 
-				return res.json(err);
-      
-			res.send(user);
-		});
-	},
-	
 	createUser(req, res) {
 		const newUser = new User(req.body);
         
@@ -76,16 +67,6 @@ module.exports = {
 				});
 			
 		})
-	},
-    
-	deleteUser(req, res) {
-		User.remove({ _id: req.params.id }, (err, user) => {
-			if (err) 
-				return res.json(err);
-      
-
-			res.json({user});
-		});
 	},
 	
 	resendV(req, res) {
