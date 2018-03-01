@@ -104,7 +104,7 @@ module.exports = {
 				return res.json(err);
 
 			res.cookie('v', true, { maxAge: 900000, httpOnly: false});
-			res.redirect('http://localhost:3000/')
+			res.redirect('https://inspiring-goldstine-bc424a.netlify.com/')
 		});
 	},
 
