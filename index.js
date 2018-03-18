@@ -20,6 +20,15 @@ const server = app.listen(port);
 const io = require('socket.io')(server)
 ioHelper(io)
 
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Origin', 'https://inspiring-goldstine-bc424a.netlify.com');
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+
+    next();
+});
+
 routes(app);
 
 mongoose.Promise = global.Promise;
