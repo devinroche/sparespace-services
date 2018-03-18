@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser')
 const cors = require('cors');
+var session = require('express-session');
 const ioHelper = require('./controllers/ioHelper')
 const routes = require('./routes/routes');
 
@@ -20,12 +21,20 @@ const server = app.listen(port);
 const io = require('socket.io')(server)
 ioHelper(io)
 
+app.use(session({
+    secret: 'fart',
+    cookie: {
+        path: '/',
+        domain: 'https://inspiring-goldstine-bc424a.netlify.com',
+        maxAge: 1000 * 60 * 24 // 24 hours
+    }
+}));
+
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Origin', 'https://inspiring-goldstine-bc424a.netlify.com');
-    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-
     next();
 });
 
