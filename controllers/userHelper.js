@@ -103,7 +103,7 @@ module.exports = {
 			if (err) 
 				return res.json(err);
 
-			res.cookie('v', true, { maxAge: 900000, secure: false, httpOnly: false, overwrite: true, domain: 'https://inspiring-goldstine-bc424a.netlify.com/'});
+			res.cookie('v', true, { maxAge: 900000, secure: false, httpOnly: false, overwrite: true, domain: '.inspiring-goldstine-bc424a.netlify.com'});
 			return res.redirect('https://inspiring-goldstine-bc424a.netlify.com/')
 		});
 	},
