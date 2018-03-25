@@ -89,7 +89,10 @@ module.exports = {
 					if (!isMatch)
 						return res.sendStatus(401)
 
-					return res.send({isMatch, id: user._id, v: user.isVerified})
+					if(user.isVerified)
+						return res.send({isMatch, id: user._id})
+					
+					res.sendStatus(404)
 				});
 			
 			else
@@ -103,8 +106,7 @@ module.exports = {
 			if (err) 
 				return res.json(err);
 
-			res.cookie('v', true, { maxAge: 900000, secure: false, httpOnly: false, overwrite: true});
-			return res.redirect('https://sparespace-services.herokuapp.com/')
+			return res.redirect('http://localhost:3000')
 		});
 	},
 
