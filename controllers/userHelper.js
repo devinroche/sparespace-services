@@ -7,15 +7,6 @@ const Listings = mongoose.model('Listing')
 const bcrypt = require('bcrypt');
 
 module.exports = {
-	allUsers(req, res) {
-		User.find({}, (err, user) => {
-			if (err) 
-				return res.json(err);
-      
-			res.send(user);
-		});
-	},
-	
 	createUser(req, res) {
 		const newUser = new User(req.body);
         
@@ -77,16 +68,6 @@ module.exports = {
 			
 		})
 	},
-    
-	deleteUser(req, res) {
-		User.remove({ _id: req.params.id }, (err, user) => {
-			if (err) 
-				return res.json(err);
-      
-
-			res.json({user});
-		});
-	},
 	
 	resendV(req, res) {
 		User.findById(req.body.u_id, (err, user) => {
@@ -108,7 +89,10 @@ module.exports = {
 					if (!isMatch)
 						return res.sendStatus(401)
 
-					return res.send({isMatch, id: user._id, v: user.isVerified})
+					if(user.isVerified)
+						return res.send({isMatch, id: user._id})
+					
+					res.sendStatus(404)
 				});
 			
 			else
@@ -122,8 +106,7 @@ module.exports = {
 			if (err) 
 				return res.json(err);
 
-			res.cookie('v', true, { maxAge: 900000, httpOnly: false});
-			res.redirect('http://localhost:3000/')
+			return res.redirect('http://localhost:3000')
 		});
 	},
 

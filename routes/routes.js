@@ -5,13 +5,11 @@ const msgHelper = require('../controllers/messageHelper');
 
 module.exports = function (app) {
 	app.route('/users')
-		.get(userHelper.allUsers)
 		.post(userHelper.createUser);
 
 	app.route('/user/:id')
 		.get(userHelper.getUser)
 		.put(userHelper.updateUser)
-		.delete(userHelper.deleteUser);
 
 	app.route('/login')
 		.post(userHelper.loginUser);
@@ -38,13 +36,7 @@ module.exports = function (app) {
 		.put(listHelper.updateListing)
 		.delete(listHelper.deleteListing);
 
-	//These are for testing.
-	app.route('/deleteListings')
-		.delete(listHelper.clearAll);
-
-	app.route('/deleteUsers')
-		.delete(userHelper.clearAll);
-
+	// messages routes
 	app.route('/message')
 		.post(msgHelper.newMessage);
 
@@ -54,7 +46,10 @@ module.exports = function (app) {
 	app.route('/message/:host/:renter')
 		.get(msgHelper.allMessages)
 
-	app.route('/allMsg')
-		.get(msgHelper.allMSG)
+	// these are for dev purposes to make it easier to test frontend
+	app.route('/deleteListings')
+		.delete(listHelper.clearAll);
 
+	app.route('/deleteUsers')
+		.delete(userHelper.clearAll);
 };

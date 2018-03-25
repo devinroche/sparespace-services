@@ -42,7 +42,7 @@ module.exports = {
 
 	closeListing(req, res) {
 		Listing.findByIdAndUpdate(req.params.id, { status: 0 }, { new: true }, (err, result) => {
-			return res.json({status: 'closed'})
+			return res.json({status: 'closed', result: result})
 		})
 	},
 

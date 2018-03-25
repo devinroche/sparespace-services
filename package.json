@@ -25,20 +25,20 @@
     "body-parser": "^1.17.2",
     "chai": "4.1.2",
     "chai-http": "3.0.0",
+    "cookie-parser": "1.4.3",
     "cors": "^2.8.4",
     "dotenv": "4.0.0",
     "express": "^4.15.4",
-    "lodash": "4.17.4",
+    "express-session": "^1.15.6",
     "mocha": "4.0.1",
     "mongoose": "^4.11.9",
     "mongoose-unique-validator": "^1.0.5",
     "nodemailer": "4.3.1",
     "nodemailer-express-handlebars": "2.0.0",
-    "react-checkbox-group": "^3.3.4",
+    "nodemon": "1.12.1",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
-    "eslint": "4.10.0",
-    "nodemon": "1.12.1"
+    "eslint": "4.10.0"
   }
 }
