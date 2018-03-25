@@ -106,7 +106,7 @@ module.exports = {
 			if (err) 
 				return res.json(err);
 
-			return res.redirect('http://localhost:3000')
+			return res.redirect('https://inspiring-goldstine-bc424a.netlify.com/')
 		});
 	},
 
