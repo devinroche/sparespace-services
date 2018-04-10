@@ -106,12 +106,8 @@ module.exports = {
 			if (err) 
 				return res.json(err);
 
-<<<<<<< HEAD
 			res.cookie('v', true, { maxAge: 900000, httpOnly: false});
 			res.redirect('https://elastic-nobel-dea756.netlify.com/')
-=======
-			return res.redirect('http://localhost:3000')
->>>>>>> f24e5cffa5e838354d63aca173562f4ce39277b0
 		});
 	},
 
