@@ -15,15 +15,6 @@ module.exports = {
 				res.send(m);
 			});
 	},
-    
-	allMSG(req, res) {
-		Message.find({}, (err, m) => {
-			if (err) 
-				return res.json(err);
-            
-			res.send(m);
-		});
-	},
 	
 	newMessage(req, res) {
 		const reciever = req.body.author === req.body.host ? req.body.renter : req.body.host
