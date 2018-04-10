@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser')
 const cors = require('cors');
 var session = require('express-session');
+var compression = require('compression')
+
 const ioHelper = require('./controllers/ioHelper')
 const routes = require('./routes/routes');
 
@@ -16,6 +18,7 @@ app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(compression())
 
 const server = app.listen(port);
 const io = require('socket.io')(server)
