@@ -75,5 +75,20 @@ module.exports = {
 
 			res.send(listing)
 		})
+	},
+	reportListing(req,res) {
+		Listing.findOne({ _id: req.body.id }, {reportCount:1,reportMessages:1}, (err, listing) => {
+			if (err) 
+				return res.json(err);
+			var tempArr = listing.reportMessages;
+			tempArr.push(req.body.message)
+			Listing.findOneAndUpdate({_id:req.body.id},{reportCount:listing.reportCount+ 1,reportMessages:tempArr},(err2,listing2) => {
+				if (err2) 
+					return res.json(err2);
+				res.json({ message: 'listing updated', listing2 });
+				
+			});
+			
+		});	
 	}
 };

@@ -15,7 +15,9 @@ const listing = new Schema({
 	lng: {type: String},
 	size: {type: String},
 	features: {type: [String]},
-	status: {type: Number, default: 1}
+	status: {type: Number, default: 1},
+	reportCount: {type: Number, default: 0},
+	reportMessages:{type:[String]},
 },{ collection: 'sparespacelisting' });
 
 module.exports = mongoose.model('Listing', listing);
