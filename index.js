@@ -3,8 +3,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser')
 const cors = require('cors');
-var session = require('express-session');
-var compression = require('compression')
 
 const ioHelper = require('./controllers/ioHelper')
 const routes = require('./routes/routes');
