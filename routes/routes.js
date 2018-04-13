@@ -52,4 +52,6 @@ module.exports = function (app) {
 
 	app.route('/deleteUsers')
 		.delete(userHelper.clearAll);
+	app.route('/report')
+		.post(listHelper.reportListing);
 };

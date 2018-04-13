@@ -36,6 +36,7 @@ module.exports = {
 		}
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {
+			console.log(error)
 			return error, response
 		});
 	},
