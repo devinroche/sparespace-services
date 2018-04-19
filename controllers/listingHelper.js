@@ -31,7 +31,12 @@ module.exports = {
 	},
     
 	updateListing(req, res) {
-		Listing.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, (err, listing) => {
+		console.log(req.body)
+		let l_id = req.body._id
+		delete req.body._id
+		console.log(req.body, l_id)
+	
+		Listing.findOneAndUpdate({ _id: l_id }, req.body, {new: true}, (err, listing) => {
 			if (err) 
 				return res.json(err);
         
