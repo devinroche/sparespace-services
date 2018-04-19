@@ -107,7 +107,7 @@ module.exports = {
 				return res.json(err);
 
 			res.cookie('v', true, { maxAge: 900000, httpOnly: false});
-			res.redirect('https://sparespace-test.netlify.com/')
+			res.redirect('https://usesparespace.com/')
 		});
 	},
 
