@@ -31,7 +31,6 @@ module.exports = {
 	},
     
 	updateListing(req, res) {
-		console.log(req.body)
 		let l_id = req.body._id
 		delete req.body._id
 		console.log(req.body, l_id)
@@ -63,7 +62,7 @@ module.exports = {
 	},
 
 	deleteListing(req, res) {
-		Listing.remove({ _id: req.params.id }, (err, listing) => {
+		Listing.remove({ _id: req.body.id }, (err, listing) => {
 			if (err) 
 				return res.json(err);
       
