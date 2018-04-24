@@ -31,7 +31,11 @@ module.exports = {
 	},
     
 	updateListing(req, res) {
-		Listing.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, (err, listing) => {
+		let l_id = req.body._id
+		delete req.body._id
+		console.log(req.body, l_id)
+	
+		Listing.findOneAndUpdate({ _id: l_id }, req.body, {new: true}, (err, listing) => {
 			if (err) 
 				return res.json(err);
         
@@ -58,7 +62,7 @@ module.exports = {
 	},
 
 	deleteListing(req, res) {
-		Listing.remove({ _id: req.params.id }, (err, listing) => {
+		Listing.remove({ _id: req.body.id }, (err, listing) => {
 			if (err) 
 				return res.json(err);
       

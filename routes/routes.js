@@ -33,8 +33,12 @@ module.exports = function (app) {
 
 	app.route('/listing/:id')
 		.get(listHelper.listingDetails)
-		.put(listHelper.updateListing)
-		.delete(listHelper.deleteListing);
+	
+	app.route('/updateListing')
+		.post(listHelper.updateListing)
+	
+	app.route('/deleteListing')
+		.post(listHelper.deleteListing);
 
 	// messages routes
 	app.route('/message')
